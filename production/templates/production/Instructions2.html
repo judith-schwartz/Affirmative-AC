@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+.tab {
+  margin-left: 20px;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Instructions - continued
+{% endblock %}
+
+{% block content %}
+
+    {% include 'production/descriptionsnippet.html' %}
+
+    {% next_button %}
+
+{% endblock %}

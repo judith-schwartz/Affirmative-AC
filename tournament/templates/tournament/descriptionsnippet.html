@@ -1,0 +1,101 @@
+{% load otree static %}
+
+<div class="text">
+
+    <h4>First part - TODAY</h4>
+    <p>
+        The first part will take around 25-30 minutes to complete and will have <b> two main stages</b>.
+        In both stages you will have to perform the same task
+        you just tried. You will receive {{ part1_completion_fee | c}} for completing this part.
+    </p>
+    <h5><b>1. {{ Constants.productivity_required_tasks }} tasks </b></h5>
+    <p>
+        First, I will ask you to do <b>{{ Constants.productivity_required_tasks }} tasks, as fast as
+        you can,</b> to measure how quickly you can perform the tasks. Although you do not receive payment for
+        this part in particular, it will serve as <b>information about how fast these tasks can be done.</b>
+        It may also affect your additional income (on top of the completion bonuses) determined in the second part.
+        You will have {{ Constants.productivity_minutes }} minutes for this part. You will only be able to
+        continue with the study if you <b>complete the {{ Constants.productivity_required_tasks }} tasks within the
+        {{ Constants.productivity_minutes }} minutes.</b> Before doing the {{ Constants.productivity_required_tasks }}
+        tasks you will be able to practice for {{ Constants.practice_minutes }} minutes.
+    </p>
+    <h5><b>2. Production</b></h5>
+    <p>
+        In this part, you will have to <b>do the task for {{ Constants.production_minutes }} minutes.</b>
+        The <b>number of tasks you correctly completed</b> within these {{ Constants.production_minutes }} minutes will be
+        <b>your production.</b>
+    </p>
+    <h5><b>Earnings from the first part</b></h5>
+    <p>
+        You will earn <b>{{ Constants.tokens_per_task }} tokens for each completed task</b> in the Production stage.
+    </p>
+    <p>
+    Note that this is <b>not how much you will eventually earn in addition to the completion bonuses</b>.
+    Your final additional income may change according to your decisions or other
+        participants' <b>decisions in the second part</b>.
+    </p>
+
+    <br>
+
+    <h4>Second part - TOMORROW</h4>
+    <p>
+        The second part will take place tomorrow, and you can complete it anytime between 6 AM and midnight
+        (Pacific Time). It will take around 5-10 minutes to complete.
+        You will receive a completion bonus of for completing this part.
+        You will receive an <b>invitation tomorrow via the Prolific emailing system with the link to the second part</b>.
+        If you complete the first part, when entering the second part the computer will automatically recognize
+        you by your Prolific ID and let you start.<br> <br>
+        At the beginning of this part, you will be <b>randomly paired with another
+        participant</b> who also completed the first part. In this part you will have to make <b>decisions
+        about the distribution of earnings from the first part</b> within pairs.
+        Your final additional income, that is on top of the fixed completion bonuses,
+        will therefore depend on your decisions or on other participants’ decisions made in the second part.
+        The <b>completion bonuses</b>
+        for the first and the second parts <b>will not be affected in any way by either your or other participants’
+        decisions.</b> <b>The decisions will affect only the additional income you will earn.</b>
+        The final additional earnings will be converted to British Pounds at the end of the study with <b>250 tokens
+        = {{ currency_per_250_tokens | c }}</b>. You will receive more detailed instructions about the
+        second part at the beginning of the second part.  <br>
+    </p>
+
+    <h4>Payment for the study</h4>
+    <p>
+        You will receive <b>all payments within 3 days after the second part</b> via the Prolific payment system.<b>
+        If you only complete the first part, you will receive {{ part1_completion_fee }} within 3 days after the
+        corresponding second part.</b>
+        Due to the interactive nature of the study we will have to wait for all participants’ answers to draw
+        the final payments. Because of this, <b>you will only learn how much you earned in total when you receive
+        your payments for the study.</b>
+    </p>
+
+    <p>
+        On the next page you can test your comprehension of the study and you can decide if you wish to
+        participate. You will see the instructions again under the consent form.
+    </p>
+
+    <h4>Further Information</h4>
+
+    <p>
+        This study is conducted by Luca Flora Drucker and financed by Central European University.
+        If you accept to participate in the study, you may still change your mind and
+        quit at any time. However, please note that you only receive the completion bonus for the first
+        part and the completion bonus for the second part and the additional income if you complete the first and
+        the second parts, respectively.</p>
+
+    <p>
+        Participation in this study is not associated with any foreseeable risk or benefit. Your answers will
+        be collected confidentially and anonymously (the researcher will not be able to link decisions and
+        participants' identity beyond the Prolific ID provided). At the data analysis stage your Prolific ID will be
+        changed to a random identifying number, and the Prolific IDs will be deleted. In case the results of the
+        study are published, there can be no references to your identity. Data anonymity is guaranteed.</p>
+
+    <p>
+        This study received a research ethics approval from the
+        <a href="https://www.ceu.edu/administration/committees/ethical-research" target="_blank"
+           rel="noopener noreferrer">Ethical Research Committee of Central European University.</a>
+
+    </p>
+    <p>If you have any questions or concerns regarding this study, please contact me at
+        lucafloradrucker.research@gmail.com.</p>
+
+</div>

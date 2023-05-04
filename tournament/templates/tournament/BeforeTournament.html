@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Wettbewerbsentscheidung
+{% endblock %}
+
+{% block content %}
+
+<div class="text">
+    <p>
+
+    </p>
+
+    <p> Please click on the Next button to proceed. </p>
+</div>
+    {% next_button %}
+
+{% endblock %}

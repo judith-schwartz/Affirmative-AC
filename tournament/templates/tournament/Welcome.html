@@ -1,0 +1,30 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Willkommen zu diesem Experiment!
+{% endblock %}
+
+{% block content %}
+    <p> Willkommen zu diesem Experiment! Vielen Dank für Ihre Teilnahme! <br>
+        <br>
+        Während des Experiments werden Sie und die anderen Teilnehmer gebeten, Entscheidungen zu treffen. Sowohl Ihre
+        eigenen Entscheidungen als auch die der anderen Teilnehmer:innen bestimmen Ihre Auszahlung entsprechend den
+        im Folgenden erklärten Regeln. <br>
+        Das Experiment wird am Computer durchgeführt. Sie erhalten alle Instruktionen am Bildschirm und treffen dort
+        auch Ihre Entscheidungen. Alle Ihre Entscheidungen und Antworten bleiben vertraulich und anonym. <br> <br>
+        Das Experiment besteht aus mehreren Teilen, die alle gleichermaßen auszahlungsrelevant sind. Außerdem erhalten
+        Sie pauschal {{ participation_fee | c}} für die heutige Teilnahme. Ihr Verdienst wird Ihnen am Ende der Sitzung
+        über unsere Auszahlungsplattform ausgezahlt. <br>
+        Alle weiteren Erklärungen bekommen Sie schrittweise jeweils zu Beginn eines Experimentteils. Wir werden Ihnen
+        genug Zeit geben, diese in Ruhe zu lesen und Fragen zu stellen. Bitte zögern Sie nicht, Fragen zu stellen,
+        falls es Unklarheiten gibt. <br> <br>
+        Bitte beachten Sie, dass während des gesamten Experiments ein Kommunikationsverbot herrscht. Sollten Sie Fragen
+        haben, stellen Sie diese bitte keinesfalls laut, sondern haben Sie die Hand. Eine Experimentator:in wird dann
+        zu Ihnen kommen, um Ihre Frage zu beantworten. Die Nichtbeachtung dieser Regel führt zum Ausschluss aus dem
+        Experiment und von allen weiteren Zahlungen.
+
+    </p>
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Wettbewerbsentscheidung
+{% endblock %}
+
+{% block content %}
+
+<div class="text">
+    <p>
+        {% if pgreen %}
+        Sie wurden der Gruppe <b>Grün</b> zugeteilt.
+        {% else %}
+        Sie wurden der Gruppe <b>Blau</b> zugeteilt.
+        {% endif %}
+    </p>
+    <p>
+        Sie haben nun die Möglichkeit, Ihre bisherigen Gewinne zu investieren. Für 2 EUR können Sie an einem Wettbewerb
+        teilnehmen. Die Gewinner:innen erhalten ihren Einsatz zurück und zusätzlichen einen Bonus zwischen 0 und 10 EUR.
+        Die Verlierer:innen erhalten ihren Einsatz nicht zurück und keinen Bonus.
+    </p>
+    <p>
+       Wenn Sie an diesem Wettbewerb teilnehmen möchten, wird Ihr Ergebnis aus dem vorangegangen Teil 2 mit dem Ergebnis
+        der anderen Teilnehmer:innen im Wettbewerb verglichen. Sie werden hierzu einer Gruppe mit insgesamt vier
+        Teilnehmer:innen zugelost. Zwei Teilnehmer:innen gehören der Gruppe GRÜN an und zwei der Gruppe BLAU.
+    </p>
+    <p>
+       Es gibt zwei mögliche Wettbewerbe für die Sie sich entscheiden können: <br><br>
+        {% if pcontrol_first %}
+        <b>Wettbewerb 1:</b> Von allen vier Teilnehmer:innen, gewinnen die beiden Teilnehmer:innen, die im vorangegangenen
+        Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. <br>
+        <b>Wettbewerb 2:</b> Von allen vier Teilnehmer:innen gewinnt den ersten Platz, die Teilnehmer:in aus Gruppe <b>Grün</b>,
+        die im vorangegangenen Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. Der zweite Platz geht an die
+        Teilnehmer:in, die aus den verbliebenen drei Gruppenmitgliedern die höchste Anzahl an Aufgaben korrekt lösen konnte.
+        {% else %}
+        <b>Wettbewerb 1:</b> Von allen vier Teilnehmer:innen gewinnt den ersten Platz, die Teilnehmer:in aus Gruppe <b>Grün</b>,
+        die im vorangegangenen Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. Der zweite Platz geht an die
+        Teilnehmer:in, die aus den verbliebenen drei Gruppenmitgliedern die höchste Anzahl an Aufgaben korrekt lösen konnte. <br>
+        <b>Wettbewerb 2:</b> Von allen vier Teilnehmer:innen, gewinnen die beiden Teilnehmer:innen, die im vorangegangenen
+        Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten.
+        {% endif %}
+    </p>
+    <p>
+        Sie werden mit einer Wahrscheinlichkeit von 50% zu Wettbewerb 1 und mit 50% zu Wettbewerb 2 gelost. Sie können
+        sich dafür entscheiden, ob Sie nur an einem der beiden Wettbewerbe, an beiden oder an keinem Wettbewerb
+        teilnehmen möchten.
+    </p>
+    <p>
+        Nach Ihrer Entscheidung werden Sie einem Wettbewerb zugelost. Wenn Sie an diesem Wettbewerb teilnehmen wollten,
+        wird Ihr Ergebnis wie oben erklärt mit dem der anderen Teilnehmer:innen verglichen und bestimmt, welchen Platz
+        Sie in Ihrer Gruppe einnehmen. <b>Wenn Sie gewonnen haben, werden Ihnen keine Kosten abgezogen und Ihr Bonus wird
+        im nächsten Teil bestimmt. Wenn Sie verloren haben, werden Ihnen die Kosten von 2 EUR abgezogen. Wenn Sie an dem
+        Wettbewerb nicht teilnehmen wollten, werden Ihnen keine Kosten abgezogen und Sie erhalten auch keinen Bonus.</b>
+    </p>
+    <p>
+        {% if pcontrol_first %}
+        Möchten Sie an <b> Wettbewerb 1</b> teilnehmen?
+        {% formfield player.part_control %}
+        Möchten Sie an <b> Wettbewerb 2</b> teilnehmen?
+        {% formfield player.part_treat %}
+        {% else %}
+        Möchten Sie an <b> Wettbewerb 1</b> teilnehmen?
+        {% formfield player.part_treat %}
+        Möchten Sie an <b> Wettbewerb 2</b> teilnehmen?
+        {% formfield player.part_control %}
+        {% endif %}
+    </p>
+    <p> Please click on the Next button to proceed. </p>
+</div>
+    {% next_button %}
+
+{% endblock %}

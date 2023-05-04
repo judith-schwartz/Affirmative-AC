@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+   Date checker
+{% endblock %}
+
+{% block content %}
+    <p>
+        {% if open %} The session is open. Please click on the Next button.
+
+        {% next_button %}
+
+        {% elif not_yet_open %} The session is not yet open. Please come back after {{ open_time }} (Pacific Time).
+
+        {% elif closed %} The session is closed.
+
+        {% endif %}
+    </p>
+
+{% endblock %}

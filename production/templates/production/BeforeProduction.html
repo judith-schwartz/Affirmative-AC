@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Beginning of production
+{% endblock %}
+
+{% block content %}
+
+<div class="text">
+    <p>
+        Thank you for completing the {{ Constants.productivity_required_tasks }} tasks.
+        Next, I will ask you to do the same task for <b>{{ Constants.production_minutes }} minutes.</b>
+        The timer starts when you click the Next button on this page.
+        The <b>number of tasks you do within the {{ Constants.production_minutes }} minutes will
+        be your production.</b> You will earn {{ Constants.tokens_per_task }} tokens per task correctly done.
+        The resulting amount will be your <b>income to distribute in the second part.</b> You will only
+        receive information about your exact production at the beginning of the second part.
+    </p>
+
+    <p> Please click on the Next button to proceed. </p>
+</div>
+    {% next_button %}
+
+{% endblock %}

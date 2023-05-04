@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+   End of study
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        Unfortunately you cannot proceed with the study because
+        you did not complete the {{ Constants.productivity_required_tasks }} tasks in time. <br>
+        Good bye!
+    </p>
+
+{% endblock %}

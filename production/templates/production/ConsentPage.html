@@ -1,0 +1,54 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+.tab {
+  margin-left: 20px;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Comprehension check and consent form
+{% endblock %}
+
+{% block content %}
+
+<p>
+    Please answer the following questions before you decide if you wish to participate, to make sure
+    you understand the details of the study. You can see the instructions again at the bottom of this
+    page for reference. If you give an incorrect answer to any of the questions and click the Next button, the
+    computer will notify you that the answer is wrong.
+</p>
+
+
+    <p>
+        {% formfield player.comprehension_check1 %}
+
+        {% formfield player.comprehension_check2 %}
+
+        {% formfield player.comprehension_check3 %}
+    </p>
+
+<p>
+
+<h4><b>Consent Form</b></h4>
+
+<p>
+    {% formfield player.gave_consent %}
+</p>
+
+    {% next_button %}
+
+    <div class="alert alert-info">
+        {% include 'production/descriptionsnippet.html' %}
+    </div>
+
+{% endblock %}

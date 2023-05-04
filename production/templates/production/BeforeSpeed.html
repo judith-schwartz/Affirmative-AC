@@ -1,0 +1,19 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    {{ Constants.productivity_required_tasks }} tasks
+{% endblock %}
+
+{% block content %}
+    <p>
+        Now please do <b>{{ Constants.productivity_required_tasks }} tasks as fast as you can,</b> to measure how fast
+        you can solve the tasks.
+        You will have {{ Constants.productivity_minutes }} minutes for this part. You have to finish the
+        {{ Constants.productivity_required_tasks }} tasks within the {{ Constants.productivity_minutes }} minutes
+        <b>to be able to continue the study.</b>
+    </p>
+
+    {% next_button %}
+
+{% endblock %}

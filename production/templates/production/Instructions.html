@@ -1,0 +1,130 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+.figure {
+  border: 3px solid #555;
+}
+
+figcaption {
+  text-align: center;
+}
+
+.column {
+  float: left;
+  width: 20%;
+  padding: 5px;
+}
+
+.row {
+   justify-content: center;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+<div class="text">
+    <p> This study will take place entirely online, in two parts. If you decide to take part in the
+        study, the first part will start immediately after you give consent to participate. You can
+        complete the second part anytime tomorrow between 6 AM and midnight (Pacific Time).
+        You will receive a <b>completion bonus of {{ part1_completion_fee | c}}</b> for completing the first part,
+        <b>plus  if you complete the second part as well. You can earn
+        <b>additional income</b> that will depend on your performance in the first part and your decisions
+        or on other participants’ decisions in the second part. The average additional income will be <b>around
+            {{ mean_additional_income | c }}.</b>
+        The first part will take around 25-30 minutes, and the second part around 5-10 minutes to complete.
+    </p>
+
+    <h3>First part - TODAY</h3>
+    <p> In the first part you will have to do a simple task. In this task you have to encrypt letter
+        combinations (= "words") into numbers, based on the key you see at the bottom of the page. For reference, see
+        <b>a screenshot of the task</b> below.
+    </p>
+    {% if letters_per_word == 2 %}
+    <div class="figure">
+        <img src="{% static 'easy_task_screenshot.png' %}" width="950" height="275"/>
+    </div>
+    {% elif letters_per_word == 3 %}
+    <div class="figure">
+        <img src="{% static 'medium_task_screenshot.png' %}" width="950" height="275"/>
+    </div>
+    {% else %}
+    <div class="figure">
+        <img src="{% static 'hard_task_screenshot.png' %}" width="950" height="275"/>
+    </div>
+    {% endif %}
+    <br><br>
+    <p> {% if letters_per_word == 2 %}
+        In this example the letter “Q” corresponds to the number 779 and “M” to 907, so you have to
+        type 779 and 907 into the boxes under the letters, respectively.
+        {% elif letters_per_word == 3 %}
+        In this example the letter “S” corresponds to the number 331, “R” to 496, and “E” to 750, so you have to
+        type 331, 496, and 750 into the boxes under the letters, respectively.
+        {% else %}
+        In this example the letter “W” corresponds to the number 411, “A” to 133, "F" to 331, and “Z” to 162,
+        so you have to type 411, 133, 331, and 162 into the boxes under the letters, respectively.
+        {% endif %}
+        You can submit your response
+        by clicking the Submit button below the task. If any of the entries are incorrect, the computer will
+        tell you the number of entries that are wrong but not which ones are wrong. Then you will be able to revise
+        your solution. Once the
+        correct numbers are entered, after clicking the Submit button, you will see a new word to encrypt.
+        After each correctly solved task the computer generates a new
+        encryption key, too. The order of the letters in the key is also shuffled between the tasks.
+    </p>
+    <p>
+        When a new word is generated, <b>the first box will become active,</b> so you can start
+        entering the first number. The fastest way to navigate from one box to the next is to use the <b>tabulator key
+        (Tab)</b> on your keyboard. From the last box you can navigate to the Submit button directly
+        with the Tab key and hit Enter. The tab key looks like this on your keyboard on PC (1) and on Mac (2 or 3):
+        <div class="row">
+            <div class="column">
+                <figure>
+                <img src="{% static 'tab-pc.jpg' %}" alt="Tab on PC" style="width:100%">
+                    <figcaption>(1)</figcaption>
+                </figure>
+            </div>
+            <div class="column">
+                <figure>
+                <img src="{% static 'tab-mac.jpg' %}" alt="Tab on Mac" style="width:100%">
+                    <figcaption>(2)</figcaption>
+                </figure>
+            </div>
+            <div class="column">
+                <figure>
+                <img src="{% static 'tab-mac2.jpg' %}" alt="Tab on Mac" style="width:100%">
+                    <figcaption>(3)</figcaption>
+                </figure>
+            </div>
+        </div>
+    </p>
+    <p>
+        On the next page you can try the task you will do in the experiment.
+        You will be automatically navigated to the following page
+        after completing the task or after {{ Constants.trytask_minutes }}
+        minutes.
+    </p>
+
+</div>
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+
+.text {
+  text-align: justify;
+}
+
+</style>
+{% endblock %}
+
+{% block title %}
+    Einschätzung der Übungsrunde
+{% endblock %}
+
+{% block content %}
+
+<div class="text">
+    <p>
+        Bitte schätzen Sie Ihr Ergebnis aus Teil 2 ein. <br><br>
+        {% formfield player.belief_performance2 %}
+        {% formfield player.belief_relative2 %}
+    </p>
+
+    <p> Bitte wählen Sie "Weiter" um fortzufahren. </p>
+</div>
+    {% next_button %}
+
+{% endblock %}
