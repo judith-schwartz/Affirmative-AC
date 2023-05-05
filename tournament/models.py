@@ -207,47 +207,88 @@ class Group(BaseGroup):
         # get groups and ranking
         for p in all_players:
             if p.part_control and p.control_treatment:
-              group = []
+                group = []
 
-              random.shuffle(outcome_tuple_blue_control)
-              random.shuffle(outcome_tuple_green_control)
-              # group should consist of 2 blue & 2 green
-              if p.green:
-                  group.append(outcome_tuple_green_control[0])
-                  group.append(outcome_tuple_blue_control[:2])
-              else:
-                  group.append(outcome_tuple_blue_control[0])
-                  group.append(outcome_tuple_blue_control[:2])
-                # add performance of the group
+                random.shuffle(outcome_tuple_blue_control)
+                random.shuffle(outcome_tuple_green_control)
+                # group should consist of 2 blue & 2 green
+                if p.green:
+                    group.append(outcome_tuple_green_control[0])
+                    group.extend(outcome_tuple_blue_control[:2])
+                else:
+                    group.append(outcome_tuple_blue_control[0])
+                    group.extend(outcome_tuple_green_control[:2])
 
-              group.sort()
+                # Sort the group based on performance
+                group.sort(key=lambda x: x[0], reverse=True)
 
-              first = [x[1] for x in decision_tuple]
-              second = [x[2] for x in decision_tuple]
-              third = [x[3] for x in decision_tuple]
-              fourth = [x[4] for x in decision_tuple]
-              if p == first[0]:
-                p.first_place = True
-              elif p == second[0]:
-                p.second_place = True
-              elif p == third[0]:
-                p.third_place = True
-              elif p == fourth[0]:
-                p.fourth_place = True
+                # Assign the ranking based on the sorted player list
+                for rank, (_, player) in enumerate(group):
+                    if p == player:
+                        if rank == 0:
+                            p.first_place = True
+                        elif rank == 1:
+                            p.second_place = True
+                        elif rank == 2:
+                            p.third_place = True
+                        elif rank == 3:
+                            p.fourth_place = True
+                        break
+
+
 
 
 
             elif p.part_treat and not p.control_treatment:
-                group = [p]
-                shuffle.control_green()
-                shuffle.control_blue()
+
+                group = []
+
+                random.shuffle(outcome_tuple_green_treat)
+
+                random.shuffle(outcome_tuple_blue_treat)
+
                 # group should consist of 2 blue & 2 green
+
                 if p.green:
-                    group.append(control_green[0])
-                    group.append(control_blue[:2])
+
+                    group.append(outcome_tuple_green_treat[0])
+
+                    group.extend(outcome_tuple_blue_treat[:2])
+
                 else:
-                    group.append(control_blue[0])
-                    group.append(control_green[:2])
+
+                    group.append(outcome_tuple_blue_treat[0])
+
+                    group.extend(outcome_tuple_green_treat[:2])
+
+                # Sort the group based on performance
+
+                group.sort(key=lambda x: x[0], reverse=True)
+
+                # Assign the ranking based on the sorted player list
+
+                for rank, (_, player) in enumerate(group):
+
+                    if p == player:
+
+                        if rank == 0:
+
+                            p.first_place = True
+
+                        elif rank == 1:
+
+                            p.second_place = True
+
+                        elif rank == 2:
+
+                            p.third_place = True
+
+                        elif rank == 3:
+
+                            p.fourth_place = True
+
+                        break
+
 
 class Player(BasePlayer):
     performance_practice = models.IntegerField(initial=0, blank=True)
