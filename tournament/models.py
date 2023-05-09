@@ -212,82 +212,135 @@ class Group(BaseGroup):
                 random.shuffle(outcome_tuple_blue_control)
                 random.shuffle(outcome_tuple_green_control)
                 # group should consist of 2 blue & 2 green
+                group.append((p.performance_production, p))
                 if p.green:
-                    group.append(outcome_tuple_green_control[0])
-                    group.extend(outcome_tuple_blue_control[:2])
+                    if len(outcome_tuple_green_control) < 2:
+                        green_players = [x for x in outcome_tuple_green_treat if x not in group][
+                                        :2 - len(outcome_tuple_green_control)]
+                        blue_players = [x for x in outcome_tuple_blue_control if x not in group][
+                                       :2 - len(outcome_tuple_blue_control)]
+                    else:
+                        green_players = [x for x in outcome_tuple_green_control if x not in group][:1]
+                        blue_players = [x for x in outcome_tuple_blue_control if x not in group][:2]
+                    group.extend(green_players)
+                    group.extend(blue_players)
                 else:
-                    group.append(outcome_tuple_blue_control[0])
-                    group.extend(outcome_tuple_green_control[:2])
+                    if len(outcome_tuple_blue_control) < 2:
+                        blue_players = [x for x in outcome_tuple_blue_treat if x not in group][
+                                       :2 - len(outcome_tuple_blue_control)]
+                        green_players = [x for x in outcome_tuple_green_control if x not in group][
+                                        :2 - len(outcome_tuple_green_control)]
+                    else:
+                        blue_players = [x for x in outcome_tuple_blue_control if x not in group][:1]
+                        green_players = [x for x in outcome_tuple_green_control if x not in group][:2]
+                    group.extend(blue_players)
+                    group.extend(green_players)
 
-                # Sort the group based on performance
+                # Sort the group by performance (highest to lowest)
                 group.sort(key=lambda x: x[0], reverse=True)
 
+                # check ranking for doubles
+                ranks = {}
+                rank = 1
+                for performance, player in group:
+                    if performance in ranks:
+                        player.rank = ranks[performance]
+                    else:
+                        player.rank = rank
+                        ranks[performance] = rank
+                        rank += 1
+
                 # Assign the ranking based on the sorted player list
-                for rank, (_, player) in enumerate(group):
-                    if p == player:
-                        if rank == 0:
-                            p.first_place = True
-                        elif rank == 1:
-                            p.second_place = True
+                ranks = {}
+                for i, (performance, player) in enumerate(group):
+                    rank = i + 1
+                    while rank in ranks.values():
+                        rank += 1
+                    ranks[player] = rank
+                    if player == p:
+                        if rank == 1:
+                            player.first_place = True
                         elif rank == 2:
-                            p.third_place = True
+                            player.second_place = True
                         elif rank == 3:
-                            p.fourth_place = True
-                        break
+                            player.third_place = True
+                        else:
+                            player.fourth_place = True
+
+                print(ranks)
 
 
 
-
-
+            # tournament ranking under affirmative action
             elif p.part_treat and not p.control_treatment:
-
                 group = []
 
                 random.shuffle(outcome_tuple_green_treat)
-
                 random.shuffle(outcome_tuple_blue_treat)
-
                 # group should consist of 2 blue & 2 green
+                group.append((p.performance_production, p))
 
                 if p.green:
+                    if len(outcome_tuple_green_treat) < 2:
+                        green_players = [x for x in outcome_tuple_green_control if x not in group][
+                                        :2 - len(outcome_tuple_green_treat)]
+                        blue_players = [x for x in outcome_tuple_blue_treat if x not in group][
+                                       :2 - len(outcome_tuple_blue_treat)]
+                    else:
+                        green_players = [x for x in outcome_tuple_green_treat if x not in group][:1]
+                        blue_players = [x for x in outcome_tuple_blue_treat if x not in group][:2]
+                    group.extend(green_players)
+                    group.extend(blue_players)
 
-                    group.append(outcome_tuple_green_treat[0])
-
-                    group.extend(outcome_tuple_blue_treat[:2])
 
                 else:
 
-                    group.append(outcome_tuple_blue_treat[0])
+                    if len(outcome_tuple_blue_treat) < 2:
 
-                    group.extend(outcome_tuple_green_treat[:2])
+                        blue_players = [x for x in outcome_tuple_blue_control if x not in group][
+                                       :2 - len(outcome_tuple_blue_treat)]
+                        green_players = [x for x in outcome_tuple_green_treat if x not in group][:2]
+
+                        if len(blue_players) < 2:
+                            blue_players.extend([x for x in outcome_tuple_blue_treat if x not in group][
+                                                :2 - len(blue_players)])
+
+                    else:
+
+                        blue_players = [x for x in outcome_tuple_blue_treat if x not in group][:1]
+                        green_players = [x for x in outcome_tuple_green_treat if x not in group][:2]
+
+                    group.extend(blue_players)
+                    group.extend(green_players)
+
 
                 # Sort the group based on performance
 
                 group.sort(key=lambda x: x[0], reverse=True)
 
                 # Assign the ranking based on the sorted player list
+                green_players = [player for _, player in group if player.green]
 
-                for rank, (_, player) in enumerate(group):
+                green_players.sort(key=lambda x: x.performance_production, reverse=True)
 
+
+                for rank, player in enumerate(green_players):
                     if p == player:
-
-                        if rank == 0:
-
+                        if rank < len(green_players)-1:
                             p.first_place = True
 
-                        elif rank == 1:
-
+                other_players = [player for _, player in group if not player.first_place]
+                other_players.sort(key=lambda x: x.performance_production, reverse=True)
+                for rank, player in enumerate(other_players):
+                    if p == player:
+                        if rank == 0:
                             p.second_place = True
-
-                        elif rank == 2:
-
+                        elif rank == 1:
                             p.third_place = True
-
-                        elif rank == 3:
-
+                        else:
                             p.fourth_place = True
 
-                        break
+
 
 
 class Player(BasePlayer):
@@ -310,10 +363,13 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
+    rank = models.IntegerField()
     first_place = models.BooleanField()
     second_place = models.BooleanField()
     third_place = models.BooleanField()
     fourth_place = models.BooleanField()
+
+    #tournament_outcome = {}
 
     #Belief Elicitation
     belief_performance1 = models.IntegerField(initial=0,
