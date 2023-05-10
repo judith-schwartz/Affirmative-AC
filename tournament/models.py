@@ -266,8 +266,27 @@ class Group(BaseGroup):
                             player.third_place = True
                         else:
                             player.fourth_place = True
+                    if rank == 1 and player.green:
+                        first_color = 'green'
+                    elif rank == 1 and not player.green:
+                        first_color = 'blue'
+                    elif rank == 2 and player.green:
+                        second_color = 'green'
+                    elif rank == 2 and not player.green:
+                        second_color = 'blue'
 
-                print(ranks)
+
+                treatment = 'control'
+
+                outcome = {
+                    'first_color': first_color,
+                    'second_color': second_color,
+                    'treatment': treatment
+                }
+                p.outcome = outcome
+
+                print(p.outcome)
+
 
 
 
@@ -339,7 +358,20 @@ class Group(BaseGroup):
                             p.third_place = True
                         else:
                             p.fourth_place = True
+                    if rank == 0 and player.green:
+                        second_color = 'green'
+                    elif rank == 0 and not player.green:
+                        second_color = 'blue'
 
+                first_color = 'green'
+                treatment = 'treatment'
+                outcome = {
+                    'first_color': first_color,
+                    'second_color': second_color,
+                    'treatment': treatment
+                }
+                p.outcome = outcome
+                print(p.outcome)
 
 
 
@@ -369,7 +401,8 @@ class Player(BasePlayer):
     third_place = models.BooleanField()
     fourth_place = models.BooleanField()
 
-    #tournament_outcome = {}
+    outcome = {}
+
 
     #Belief Elicitation
     belief_performance1 = models.IntegerField(initial=0,
