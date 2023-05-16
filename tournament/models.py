@@ -57,15 +57,14 @@ class Constants(BaseConstants):
     production_seconds = 60  # This will be the duration of the production part -- 15 min = 900 secs
     production_minutes = round(production_seconds / 60)
 
+
     # Affirmative action
     color = {
         0: "blue",
         1: "green"
     }
 
-    # Tournament
 
-    # Tournament presentation
 
     # Exogenous task length
     task_lengths = 3
@@ -77,9 +76,11 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
+
     dictionary = models.StringField()
 
     def creating_session(self):
+
         # Create control
         import itertools
         control = itertools.cycle([True, False])  # subject
@@ -129,6 +130,7 @@ class Subsession(BaseSubsession):
                 player.control_first = False
 
 
+
         # Create dictionary
         letters = list(string.ascii_uppercase)
         random.shuffle(letters)
@@ -167,10 +169,14 @@ class Subsession(BaseSubsession):
             p.participant.vars['end_time'] = ""
             p.participant.vars['gave_consent'] = ""
             p.participant.vars['completed_tasks_productivity'] = ""
+            p.participant.vars['outcome'] = []
 
 
 class Group(BaseGroup):
+
+
     def tournament_outcome(self):
+
         # Create list of tournament participants
         control_green = []
         control_blue = []
@@ -181,6 +187,8 @@ class Group(BaseGroup):
         treat_green_performance = []
         treat_blue_performance = []
         all_players = self.get_players()
+        all_outcomes = []
+
         # get a list of all players that want to participate in the tournaments sorted by colour
         for p in all_players:
             if p.green:
@@ -237,7 +245,7 @@ class Group(BaseGroup):
                     group.extend(green_players)
 
                 # Sort the group by performance (highest to lowest)
-                group.sort(key=lambda x: x[0], reverse=True)
+                group.sort(key=lambda x: x[0] if x[0] is not None else 0, reverse=True)
 
                 # check ranking for doubles
                 ranks = {}
@@ -283,9 +291,9 @@ class Group(BaseGroup):
                     'second_color': second_color,
                     'treatment': treatment
                 }
-                p.outcome = outcome
+                p.set_outcome(outcome)
+                all_outcomes.append(outcome)
 
-                print(p.outcome)
 
 
 
@@ -335,7 +343,7 @@ class Group(BaseGroup):
 
                 # Sort the group based on performance
 
-                group.sort(key=lambda x: x[0], reverse=True)
+                group.sort(key=lambda x: x[0] if x[0] is not None else 0, reverse=True)
 
                 # Assign the ranking based on the sorted player list
                 green_players = [player for _, player in group if player.green]
@@ -370,9 +378,14 @@ class Group(BaseGroup):
                     'second_color': second_color,
                     'treatment': treatment
                 }
-                p.outcome = outcome
-                print(p.outcome)
+                p.set_outcome(outcome)
 
+                all_outcomes.append(outcome)
+
+        for p in all_players:
+            p.set_all_outcome(all_outcomes)
+
+        print(all_outcomes)
 
 
 class Player(BasePlayer):
@@ -401,9 +414,6 @@ class Player(BasePlayer):
     third_place = models.BooleanField()
     fourth_place = models.BooleanField()
 
-    outcome = {}
-
-
     #Belief Elicitation
     belief_performance1 = models.IntegerField(initial=0,
                                               label="Wie viele Aufgaben haben Sie korrekt gelöst?",
@@ -423,6 +433,10 @@ class Player(BasePlayer):
                                            min = -200,
                                            max = 200)
 
+    #Bonus decision
+    bonus = models.FloatField()
+
+    #Comprehension Checks
     comprehension_check1 = models.IntegerField(
         label="When is the second part of the study?",
         choices=[
@@ -453,6 +467,15 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelect
     )
+
+    def set_outcome(self, outcome):
+        self.participant.vars['outcome'] = outcome
+
+    def set_all_outcome(self, outcome):
+        self.participant.vars['all_outcomes'] = outcome
+
+    def get_outcome(self):
+        return self.participant.vars['outcome']
 
     def live_update_performance_practice(self, data):
         own_id = self.id_in_group
