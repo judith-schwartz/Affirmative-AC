@@ -5,7 +5,6 @@ from random import gauss
 import time, datetime, random, pytz
 import numpy as np
 
-
 """ class DateChecker(Page):
     def vars_for_template(self):
         config = self.session.config
@@ -68,11 +67,9 @@ class Instructions(Page):
         return {
             'participation_fee': config['participation_fee'],
 
-            'letters_per_word' : Constants.default_letters_per_word,
+            'letters_per_word': Constants.default_letters_per_word,
             'mean_additional_income': 3,
         }
-
-
 
 
 class Practice(Page):
@@ -103,15 +100,17 @@ class Practice(Page):
         ppvars = p.participant.vars
         ppvars['tasks_done_during_practice'] = p.performance_practice
 
+
 class FirstBeliefElicitation(Page):
     form_model = 'player'
     form_fields = ['belief_performance1', 'belief_relative1']
+
 
 class BeforeProduction(Page):
 
     def vars_for_template(self):
         p = self.player
-        p.performance_production = 0 # nicht unbedingt notwendig
+        p.performance_production = 0  # nicht unbedingt notwendig
         ppvars = p.participant.vars
         s_constants = p.session.vars['constant_values']
         ppcomps = ppvars['components']
@@ -124,7 +123,6 @@ class BeforeProduction(Page):
 
 
 class Production(Page):
-
     live_method = 'live_update_performance_production'
 
     form_model = 'player'
@@ -159,8 +157,9 @@ class Production(Page):
 
         print('Components so far are', ppcomps)
 
-#class BeforeTournament(WaitPagePage):
 
+class BeforeTournament(WaitPage):
+    after_all_players_arrive = 'tournament_group'
 
 
 class Tournament(Page):
@@ -179,15 +178,20 @@ class Tournament(Page):
                 }
 
 
-
 class SecondBeliefElicitation(Page):
     form_model = 'player'
-    form_fields =['belief_performance2', 'belief_relative2']
+    form_fields = ['belief_performance2', 'belief_relative2']
+
 
 class BeforeBonus(WaitPage):
     after_all_players_arrive = 'tournament_outcome'
-#class Bonus(Page):
 
+    #before_next_page = 'set_outcome'
+
+
+class Bonus(Page):
+    form_model = 'player'
+    form_fields = 'bonus'
 
 
 page_sequence = [Welcome,
@@ -196,9 +200,10 @@ page_sequence = [Welcome,
                  FirstBeliefElicitation,
                  BeforeProduction,
                  Production,
+                 BeforeTournament,
                  Tournament,
                  SecondBeliefElicitation,
-                 BeforeBonus,
-                 #Bonus,
+                 BeforeBonus#,
+                 #Bonus
 
                  ]

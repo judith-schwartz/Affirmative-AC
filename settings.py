@@ -1,4 +1,8 @@
 from os import environ
+SECRET_KEY = 'MY SECRET KEY'
+#import django
+#django.setup()
+
 
 
 SESSION_CONFIGS = [
@@ -9,16 +13,29 @@ SESSION_CONFIGS = [
         app_sequence=['survey', 'payment_info'],
     ),
 dict(
-        name='Flora',
-        display_name='Flora',
-        num_demo_participants=1,
-        app_sequence=['production'],
-    ),
-dict(
-        name='Judith',
-        display_name='Judith',
+        name='4',
+        display_name='4',
         num_demo_participants=4,
         app_sequence=['tournament'],
+    ),
+dict(
+        name='8',
+        display_name='8',
+        num_demo_participants=8,
+        app_sequence=['tournament'],
+
+    ),
+dict(
+        name='combined',
+        display_name='combined',
+        num_demo_participants=4,
+        app_sequence=['tournament', 'slider_noanchor', 'payment_info'],
+    ),
+dict(
+        name='slider_noanchor',
+        display_name='slider_noanchor',
+        num_demo_participants=1,
+        app_sequence=['slider_noanchor'],
     ),
 ]
 
@@ -28,7 +45,7 @@ dict(
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=4.00, doc=""
+    real_world_currency_per_point=1.00, participation_fee=6.00, doc=""
 )
 
 # ISO-639 code

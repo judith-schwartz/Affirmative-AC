@@ -194,6 +194,8 @@ def custom_export(players):
         time = ppvars.get('time', '')
         task_length_treatment = ppvars.get('task_length_treatment', '')
         tasks_done_during_practice = ppvars.get('tasks_done_during_practice', '')
+        # Add first_place and second_place to participant vars
+
         yield [ps.code, pp.code, pp.label, ppvars['gave_consent'],  ppvars['completed'], ppvars['start_time'],
                ppvars['end_time'], ps.config['participation_fee'], task_length_treatment,
                group, ppcomps['production'], ppcomps['tasks1min'], ppcomps['income'], time,

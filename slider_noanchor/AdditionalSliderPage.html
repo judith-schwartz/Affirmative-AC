@@ -1,0 +1,220 @@
+{{ block title }}
+    Ergebnis des Wettbewerbs
+{{ endblock }}
+{{ block content }}
+
+    <style>
+        .mgslider-wrapper {
+            border-spacing: 10px;
+        }
+        .mgslider-limit {
+            width: 10%;
+            min-width: 75px;
+            height: 40px;
+            margin: 100px;
+            text-align: center;
+            background: #eee;
+            border: 1px solid #888;
+        }
+        .mgslider-limit, .mgslider-value {
+            font-variant-numeric: tabular-nums;
+        }
+        .mgslider-before {
+            height: 16px;
+            width: 100%;
+            background: #1e5bff;
+        }
+        .mgslider-feedback {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+        {{ formfield_errors 'bonus1' }}
+        {{ formfield_errors 'bonus2' }}
+        {{ formfield_errors 'bonus3' }}
+        {{ formfield_errors 'bonus4' }}
+        {{ formfield_errors 'bonus5' }}
+        {{ formfield_errors 'bonus6' }}
+
+    <!-- First outcome -->
+    <p>
+        {% if treatment1 == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment1 == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color1 == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color1 == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color1 == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color1 == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+    </p>
+
+    <div id="slider1_here"></div>
+    <script src="{{ static 'mgslider.js' }}"></script>
+    <script>
+        $(document).ready(function (event) {
+            slider1 = new mgslider("bonus1", 0, 10, 0.01);
+            slider1.print(document.getElementById("slider1_here"));
+        });
+    </script>
+
+    <!-- 2n outcome -->
+    <p>
+        {% if treatment2 == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment2 == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color2 == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color2 == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color2 == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color2 == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+    </p>
+
+    <div id="slider2_here"></div>
+    <script src="{{ static 'mgslider.js' }}"></script>
+    <script>
+        $(document).ready(function (event) {
+            slider2 = new mgslider("bonus2", 0, 10, 0.01);
+            slider2.print(document.getElementById("slider2_here"));
+        });
+    </script>
+    <!-- 3rd outcome -->
+    <p>
+        {% if treatment3 == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment3 == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color3 == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color3 == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color3 == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color3 == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+    </p>
+
+    <div id="slider3_here"></div>
+    <script src="{{ static 'mgslider.js' }}"></script>
+    <script>
+        $(document).ready(function (event) {
+            slider3 = new mgslider("bonus3", 0, 10, 0.01);
+            slider3.print(document.getElementById("slider3_here"));
+        });
+    </script>
+
+<!-- 4th outcome -->
+    <p>
+        {% if treatment4 == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment4 == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color4 == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color4 == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color4 == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color4 == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+    </p>
+
+    <div id="slider4_here"></div>
+    <script src="{{ static 'mgslider.js' }}"></script>
+    <script>
+        $(document).ready(function (event) {
+            slider4 = new mgslider("bonus4", 0, 10, 0.01);
+            slider4.print(document.getElementById("slider4_here"));
+        });
+    </script>
+
+<!-- 5th outcome -->
+    <p>
+        {% if treatment5 == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment5 == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color5 == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color5 == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color5 == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color5 == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+    </p>
+
+    <div id="slider5_here"></div>
+    <script src="{{ static 'mgslider.js' }}"></script>
+    <script>
+        $(document).ready(function (event) {
+            slider5 = new mgslider("bonus5", 0, 10, 0.01);
+            slider5.print(document.getElementById("slider5_here"));
+        });
+    </script>
+
+<!-- 6th outcome -->
+    <p>
+        {% if treatment6 == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment6 == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color6 == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color6 == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color6 == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color6 == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+    </p>
+
+    <div id="slider6_here"></div>
+    <script src="{{ static 'mgslider.js' }}"></script>
+    <script>
+        $(document).ready(function (event) {
+            slider6 = new mgslider("bonus6", 0, 10, 0.01);
+            slider6.print(document.getElementById("slider6_here"));
+        });
+    </script>
+    {{ next_button }}
+
+{{ endblock }}

@@ -1,15 +1,7 @@
-from otree.api import (
-    models,
-    widgets,
-    BaseConstants,
-    BaseSubsession,
-    BaseGroup,
-    BasePlayer,
-    Currency as c,
-    currency_range,
-)
+from otree.api import *
 import random, string, json, time, math, pickle
 import numpy as np
+
 
 author = 'Judith Schwartz'
 
@@ -70,9 +62,9 @@ class Constants(BaseConstants):
     task_lengths = 3
 
     # Roles
-    FIRST_ROLE = 'Erster Platz'
-    SECOND_ROLE = 'Zweiter Platz'
-    LOST_ROLE = 'Nicht gewonnen'
+    #FIRST_ROLE = 'Erster Platz'
+    #SECOND_ROLE = 'Zweiter Platz'
+    #LOST_ROLE = 'Nicht gewonnen'
 
 
 class Subsession(BaseSubsession):
@@ -80,57 +72,7 @@ class Subsession(BaseSubsession):
     dictionary = models.StringField()
 
     def creating_session(self):
-
-        # Create control
         import itertools
-        control = itertools.cycle([True, False])  # subject
-        for player in self.get_players():
-            player.control_treatment = next(control)
-
-        # Sort into control and treatment group (tournament participation)
-        control_group = []
-        treat_group = []
-        for player in self.get_players():
-            if player.control_treatment:
-                control_group.append(player)
-            else:
-                treat_group.append(player)
-
-        # Sort into affirmative action (green)
-        control_green = control_group[:len(control_group)//2]
-        for player in control_group:
-            if player in control_green:
-                player.green = True
-            else:
-                player.green = False
-
-        treat_green = treat_group[:len(treat_group)//2]
-        for player in treat_group:
-            if player in treat_green:
-                player.green = True
-            else:
-                player.green = False
-
-        # Presentation of tournament
-        random.shuffle(control_group)
-        random.shuffle(treat_group)
-
-        tournament = control_group[:len(control_group) // 2]
-        for player in control_group:
-            if player in tournament:
-                player.control_first = True
-            else:
-                player.control_first = False
-
-        tournament = treat_group[:len(treat_group) // 2]
-        for player in treat_group:
-            if player in tournament:
-                player.control_first = True
-            else:
-                player.control_first = False
-
-
-
         # Create dictionary
         letters = list(string.ascii_uppercase)
         random.shuffle(letters)
@@ -173,9 +115,108 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
+     def tournament_group2(self):
+         # Create control
+         import itertools
+         control = itertools.cycle([True, False])  # subject
+         for player in self.get_players():
+             player.control_treatment = next(control)
+
+         # Sort into control and treatment group (tournament participation)
+         control_group = []
+         treat_group = []
+         for player in self.get_players():
+             if player.control_treatment:
+                 control_group.append(player)
+             else:
+                 treat_group.append(player)
+
+         # Sort into affirmative action (green)
+         control_green = control_group[:len(control_group) // 2]
+         for player in control_group:
+             if player in control_green:
+                 player.green = True
+             else:
+                 player.green = False
+
+         treat_green = treat_group[:len(treat_group) // 2]
+         for player in treat_group:
+             if player in treat_green:
+                 player.green = True
+             else:
+                 player.green = False
+
+         # Presentation of tournament
+         random.shuffle(control_group)
+         random.shuffle(treat_group)
+
+         tournament = control_group[:len(control_group) // 2]
+         for player in control_group:
+             if player in tournament:
+                 player.control_first = True
+             else:
+                 player.control_first = False
+
+         tournament = treat_group[:len(treat_group) // 2]
+         for player in treat_group:
+             if player in tournament:
+                 player.control_first = True
+             else:
+                 player.control_first = False
+     def tournament_group(self):
+        import itertools
+        import random
+
+        all_players = self.get_players()
+        num_players = len(all_players)
+
+        # Assign players to control or treatment group
+        control_group = []
+        treatment_group = []
+        for i, player in enumerate(all_players):
+            if i < num_players // 2:
+                control_group.append(player)
+            else:
+                treatment_group.append(player)
+
+        # Assign colors to players in control group
+        control_green = control_group[:len(control_group) // 2]
+        for player in control_group:
+            player.control_treatment = True
+            if player in control_green:
+                player.green = True
+            else:
+                player.green = False
+
+        # Assign colors to players in treatment group
+        treatment_green = treatment_group[:len(treatment_group) // 2]
+        for player in treatment_group:
+            player.control_treatment = False
+            if player in treatment_green:
+                player.green = True
+            else:
+                player.green = False
+
+        # Shuffle and assign control_first attribute for control group players
+        random.shuffle(control_group)
+        num_control_first = len(control_group) // 2
+        for i, player in enumerate(control_group):
+            if i < num_control_first:
+                player.control_first = True
+            else:
+                player.control_first = False
+
+        # Shuffle and assign control_first attribute for treatment group players
+        random.shuffle(treatment_group)
+        num_treatment_first = len(treatment_group) // 2
+        for i, player in enumerate(treatment_group):
+            if i < num_treatment_first:
+                player.control_first = True
+            else:
+                player.control_first = False
 
 
-    def tournament_outcome(self):
+     def tournament_outcome(self):
 
         # Create list of tournament participants
         control_green = []
@@ -195,16 +236,20 @@ class Group(BaseGroup):
                 if p.part_control and p.control_treatment:
                     control_green.append(p)
                     control_green_performance.append(p.performance_production)
+                    p.participant.vars['Participated'] = True
                 elif p.part_treat and not p.control_treatment:
                     treat_green.append(p)
                     treat_green_performance.append(p.performance_production)
+                    p.participant.vars['Participated'] = True
             else:
                 if p.part_control and p.control_treatment:
                     control_blue.append(p)
                     control_blue_performance.append(p.performance_production)
+                    p.participant.vars['Participated'] = True
                 elif p.part_treat and not p.control_treatment:
                     treat_blue.append(p)
                     treat_blue_performance.append((p.performance_production))
+                    p.participant.vars['Participated'] = True
 
         # list of tounament outcomes
         outcome_tuple_green_treat = list(zip(treat_green_performance, treat_green))
@@ -289,9 +334,13 @@ class Group(BaseGroup):
                 outcome = {
                     'first_color': first_color,
                     'second_color': second_color,
-                    'treatment': treatment
+                    'treatment': treatment,
+                    'first_place': p.first_place,  # Add first place information to the outcome
+                    'second_place': p.second_place,  # Add second place information to the outcome
+                    'green': p.green
                 }
                 p.set_outcome(outcome)
+                print(outcome)
                 all_outcomes.append(outcome)
 
 
@@ -376,9 +425,13 @@ class Group(BaseGroup):
                 outcome = {
                     'first_color': first_color,
                     'second_color': second_color,
-                    'treatment': treatment
+                    'treatment': treatment,
+                    'first_place': p.first_place,  # Add first place information to the outcome
+                    'second_place': p.second_place,  # Add second place information to the outcome
+                    'green': p.green
                 }
                 p.set_outcome(outcome)
+                print(outcome)
 
                 all_outcomes.append(outcome)
 
@@ -399,6 +452,7 @@ class Player(BasePlayer):
     green = models.BooleanField()
     control_first = models.BooleanField()
     # Tournament participation
+    Participated = models.BooleanField(initial=False)
     part_control = models.BooleanField(
         label="",
         widget=widgets.RadioSelect
@@ -409,10 +463,10 @@ class Player(BasePlayer):
     )
 
     rank = models.IntegerField()
-    first_place = models.BooleanField()
-    second_place = models.BooleanField()
-    third_place = models.BooleanField()
-    fourth_place = models.BooleanField()
+    first_place = models.BooleanField(initial=False)
+    second_place = models.BooleanField(initial=False)
+    third_place = models.BooleanField(initial=False)
+    fourth_place = models.BooleanField(initial=False)
 
     #Belief Elicitation
     belief_performance1 = models.IntegerField(initial=0,
@@ -434,7 +488,13 @@ class Player(BasePlayer):
                                            max = 200)
 
     #Bonus decision
-    bonus = models.FloatField()
+    #bonus = models.FloatField()
+    #bonus1 = models.FloatField()
+    #bonus2 = models.FloatField()
+    #bonus3 = models.FloatField()
+    #bonus4 = models.FloatField()
+    #bonus5 = models.FloatField()
+    #bonus6 = models.FloatField()
 
     #Comprehension Checks
     comprehension_check1 = models.IntegerField(
@@ -471,6 +531,7 @@ class Player(BasePlayer):
     def set_outcome(self, outcome):
         self.participant.vars['outcome'] = outcome
 
+
     def set_all_outcome(self, outcome):
         self.participant.vars['all_outcomes'] = outcome
 
@@ -503,6 +564,9 @@ class Player(BasePlayer):
         answer = dict(performance_production=self.performance_production, shuffle=shuffle)
         return {own_id: answer}
 
+    def vars_for_template(self):
+        return {'form': PlayerForm(instance=self)}
+
 
 def custom_export(players):
     # header row
@@ -525,3 +589,5 @@ def custom_export(players):
                ppvars['end_time'], ps.config['participation_fee'], task_length_treatment,
                group, ppcomps['production'], ppcomps['tasks1min'], ppcomps['income'], time,
                ppvars['completed_tasks_productivity'], tasks_done_during_practice]
+
+

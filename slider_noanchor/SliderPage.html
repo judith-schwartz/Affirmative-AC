@@ -1,5 +1,5 @@
 {{ block title }}
-    Sliders
+    Ergebnis des Wettbewerbs
 {{ endblock }}
 {{ block content }}
 
@@ -31,9 +31,43 @@
         }
     </style>
 
-    {{ formfield_errors 'price' }}
-    {{ formfield_errors 'number' }}
-    <p>Click the blue bars to reveal the sliders.</p>
+    {{ formfield_errors 'bonus0' }}
+    <p>
+        Die Ergebnisse des Wettbewerbs wurden berechnet. Sie haben nun die Möglichkeit über den Bonus für die Gewinner zu
+        entscheiden, indem Sie die Gesamtsumme von 10 EUR auf die Gewinner verteilen.
+        {% if treatment == 'control' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
+        {% elif treatment == 'treatment' %}
+        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
+        {% endif %}
+
+        {% if first_color == 'green' %}
+        Der erste Platz ging an einen grünen Spieler.
+        {% elif first_color == 'blue' %}
+        Der erste Platz ging an einen blauen Spieler.
+        {% endif %}
+
+        {% if second_color == 'green' %}
+        Der zweite Platz ging an einen grünen Spieler.
+        {% elif second_color == 'blue' %}
+        Der zweite Platz ging an einen blauen Spieler.
+        {% endif %}
+        <br>
+        {% if first_place %}
+        Sie haben den ersten Platz in Ihrer Gruppe gewonnen.
+        {% elif second_place %}
+        Sie haben den zweiten Platz in Ihrer Gruppe gewonnen.
+        {% else %}
+        Sie haben nicht gewonnen.
+        {% endif %}
+        {% if green %}
+        Sie gehören zur <b>grünen</b> Gruppe.
+        {% else %}
+        Sie gehören zur <b>blauen</b> Gruppe.
+        {% endif %}
+
+    </p>
+
 
     <div id="sliders_here"></div>
 
@@ -41,11 +75,8 @@
 
     <script>
         $(document).ready(function (event) {
-            slider1 = new mgslider("price", -5, 10, 0.25);
+            slider1 = new mgslider("bonus0", 0, 10, 0.01);
             slider1.print(document.getElementById("sliders_here"));
-
-            slider2 = new mgslider("number", 0, 50, 1);
-            slider2.print(document.getElementById("sliders_here"));
         });
     </script>
 
