@@ -539,7 +539,8 @@ def custom_export(players):
     yield ['part1_session_code', 'part1_participant_code', 'prolific_id', 'completed_part1',
            'part1_start_time', 'part1_end_time', 'part1_completion_fee',
            'group', 'production', 'tasks1min', 'income', 'time', 'completed_tasks_productivity',
-           'tasks_done_during_practice', 'performance_production', 'performance_practice']
+           'tasks_done_during_practice', 'performance_production', 'performance_practice',
+           'belief_performance1', 'belief_relative1', 'belief_performance2', 'belief_relative2']
 
     # data
     for p in players:
@@ -550,9 +551,14 @@ def custom_export(players):
         group = ppcomps.get('group', '')
         time = ppvars.get('time', '')
         tasks_done_during_practice = ppvars.get('tasks_done_during_practice', '')
-        performance_production = p.performance_production  # Add the performance_production field
+        performance_production = p.performance_production
         performance_practice = p.performance_practice
+        belief_performance1 = p.belief_performance1
+        belief_relative1 = p.belief_relative1
+        belief_performance2 = p.belief_performance2
+        belief_relative2 = p.belief_relative2
         yield [ps.code, pp.code, pp.label, ppvars['completed'], ppvars['start_time'],
                ppvars['end_time'], ps.config['participation_fee'], task_length_treatment,
                group, ppcomps['production'], ppcomps['tasks1min'], ppcomps['income'], time,
-               ppvars['completed_tasks_productivity'], tasks_done_during_practice, performance_production, performance_practice]
+               ppvars['completed_tasks_productivity'], tasks_done_during_practice, performance_production, performance_practice,
+               belief_performance1, belief_relative1, belief_performance2, belief_relative2]
