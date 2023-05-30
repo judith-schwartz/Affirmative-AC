@@ -22,7 +22,8 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     tournament_fee = 2
-
+    performance_payout = 0.05
+    belief_payout = 0.5
 
 
 class Subsession(BaseSubsession):

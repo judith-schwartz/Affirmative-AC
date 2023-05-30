@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Lotterie
+{% endblock %}
+
+{% block content %}
+<p>Im Folgenden beantworten Sie bitte noch ein paar Fragen zu Lotterien, <b>bei denen Sie verdienen oder auch verlieren
+    können</b>, falls Sie sich entscheiden, die Lotterien zu akzeptieren.</p>
+<p>Unten sind 6 verschiedene Lotterien aufgelistet. Sie können für jede der 6 Lotterien wählen, ob Sie die Lotterie
+    akzeptieren oder ablehnen möchten. Falls Sie eine Lotterie ablehnen, bleibt Ihre Auszahlung unverändert. Falls Sie
+    eine Lotterie akzeptieren, werden Sie ausgehend von Ihrem gesamten Verdienst entweder einen zusätzlichen Gewinn
+    oder einen zusätzlichen Verlust realisieren.</p>
+<p><b>Am Ende des Experiments wird zufällig eine der 6 Lotterien ausgewählt.</b> Sie sollten also jede Lotterieentscheidung
+    so fällen, als wäre es Ihre einzige Entscheidung. Die ausgewählte Lotterie wird anschließend ausgelost, damit
+    feststeht, ob sich der zusätzliche Gewinn oder Verlust realisiert.</p>
+
+{% formfield player.lottery_1 %}
+{% formfield player.lottery_2 %}
+{% formfield player.lottery_3 %}
+{% formfield player.lottery_4 %}
+{% formfield player.lottery_5 %}
+{% formfield player.lottery_6 %}
+
+
+{% next_button %}
+
+{% endblock %}

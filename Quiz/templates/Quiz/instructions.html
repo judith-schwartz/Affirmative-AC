@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Allgemeine Fragen
+{% endblock %}
+
+{% block content %}
+<p>Bitte beantworten Sie alle Fragen und klicken Sie bitte auf "Weiter".</p>
+
+{% formfield player.q_risk %}
+{% formfield player.q_social %}
+{% formfield player.q_time %}
+
+
+{% next_button %}
+
+{% endblock %}

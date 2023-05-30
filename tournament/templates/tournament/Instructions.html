@@ -3,36 +3,45 @@
 
 {% block styles %}
 <style>
+    .text {
+        text-align: justify;
+    }
 
-.text {
-  text-align: justify;
-}
+    .figure {
+        max-width: 100%;
+        height: auto;
+        width: 800px; /* Increase the width value as desired */
+    }
 
-.figure {
-  border: 3px solid #555;
-}
+    .figure img {
+        width: 100%; /* Set the width to 100% */
+        height: auto;
+    }
 
-figcaption {
-  text-align: center;
-}
+    .small-image {
+    width: 200px !important;  /* Adjust the width value as desired for the smaller image */
+    }
 
-.column {
-  float: left;
-  width: 20%;
-  padding: 5px;
-}
+    figcaption {
+        text-align: center;
+    }
 
-.row {
-   justify-content: center;
-}
+    .column {
+        float: center;
+        width: 100%;
+        padding: 5px;
+    }
 
-/* Clear floats after image containers */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+    .row {
+        justify-content: center;
+    }
 
+    /* Clear floats after image containers */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 </style>
 {% endblock %}
 
@@ -46,31 +55,45 @@ figcaption {
         zu dekodieren. Dafür sehen Sie unten auf der Seite Schlüssel wie in dem folgenden Screenshot zu sehen ist.
     </p>
 
-
+    <div class="row">
+    <div class="column">
+        <figure class="figure">
+            <img src="{% static 'task.jpg' %}" alt="Example Image">
+        </figure>
+    </div>
+    </div>
 
     <br><br>
-    <p> {% if letters_per_word == 2 %}
+    <p>
+
+        {% if letters_per_word == 2 %}
         In this example the letter “Q” corresponds to the number 779 and “M” to 907, so you have to
         type 779 and 907 into the boxes under the letters, respectively.
         {% elif letters_per_word == 3 %}
-        In this example the letter “S” corresponds to the number 331, “R” to 496, and “E” to 750, so you have to
-        type 331, 496, and 750 into the boxes under the letters, respectively.
+        In diesem Beispiel entspricht der Buchstabe "Y" der Zahl 914, "U" der Zahl 518 und "A" der Zahl 300.Sie müssen
+        also entsprechend 914, 518 und 300 in die jeweilige Box unter den Buchstaben eintragen.
         {% else %}
         In this example the letter “W” corresponds to the number 411, “A” to 133, "F" to 331, and “Z” to 162,
         so you have to type 411, 133, 331, and 162 into the boxes under the letters, respectively.
         {% endif %}
-        Sie können ihre Antwort mithilfe des "Eingabe" Schaltfläche eingeben. If any of the entries are incorrect, the computer will
-        tell you the number of entries that are wrong but not which ones are wrong. Then you will be able to revise
-        your solution. Sobald Sie ihre Antwort eingegeben haben, wird ihnen ein neues Wort zum dekodieren angezeigt. Der
+        Sie können ihre Antwort mithilfe des "Eingabe" Schaltfläche eingeben. Wenn auch nur eine der Einträge falsch ist,
+        teilt Ihnen der Computer die Anzahl der falschen Einträge mit, aber nicht welche Einträge falsch sind. Sie können
+        daraufhin Ihre Einträge korrigieren.
+        Sobald Sie ihre Antwort eingegeben haben, wird ihnen ein neues Wort zum dekodieren angezeigt. Der
         Lösungsschlüssel wird ebenfalls neu generiert. Dabei wird auch die Reihenfolge der Buchstaben neu gemischt.
     </p>
     <p>
         Wenn ein neues Word generiert wurde, <b>wird die erste Antwortfläche aktiv</b> und Sie können die erste Zahl eingeben.
         Der schnellste Weg, um zur nächsten Antwortflächen zu wechseln ist die <b>Tab-Taste</b>. Von der letzten Antwortfläche
-        können Sie direkt zur Eingabefläche wechseln und die Enter-Taste drücken. Die Tab-Taste sieht auf PC (1) und
-        Mac (2 oder 3) wie folgt aus:
-
+        können Sie direkt zur Eingabefläche wechseln und die Enter-Taste drücken. Die Tab-Taste sieht auf ihrem PC (1) wie folgt aus:
     </p>
+    <div class="row">
+    <div class="column">
+        <figure class="figure">
+            <img src="{% static 'tab_windows.jfif' %}" alt="Tab" class="small-image">
+        </figure>
+    </div>
+    </div>
     <p>
         Auf der folgenden Seite können Sie den Task für {{ Constants.trytask_minutes }} Minuten üben.
     </p>

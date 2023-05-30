@@ -27,7 +27,8 @@ class Constants(BaseConstants):
     name_in_url = 'single'
     players_per_group = None
     num_rounds = 1
-    tokens_per_task = 10
+    performance_payout = 0.05
+    belief_payout = 0.5
 
     # Task constants
     default_letters_per_word = 3
@@ -473,59 +474,24 @@ class Player(BasePlayer):
                                               label="Wie viele Aufgaben haben Sie korrekt gelöst?",
                                               min=0,
                                               max=500)
-    belief_relative1 = models.IntegerField(initial=0,
-                                           label="Wie viele Aufgaben mehr oder weniger haben Sie im Vergleich zum Durchschnitt korrekt gelöst?",
-                                           min = -200,
-                                           max = 200)
+    belief_relative1 = models.IntegerField(
+        choices=[
+            [i, f'{i}-{i + 10}%' if i == 0 else f'{i + 1}-{i + 10}%']
+            for i in range(0, 91, 10)
+        ],
+        label="Wie schneiden Sie im Vergleich zum Rest der Gruppe ab?"
+    )
     belief_performance2 = models.IntegerField(initial=0,
                                               label="Wie viele Aufgaben haben Sie korrekt gelöst?",
                                               min=0,
                                               max=500
                                               )
-    belief_relative2 = models.IntegerField(initial=0,
-                                           label="Wie viele Aufgaben mehr oder weniger haben Sie im Vergleich zum Durchschnitt korrekt gelöst?",
-                                           min = -200,
-                                           max = 200)
-
-    #Bonus decision
-    #bonus = models.FloatField()
-    #bonus1 = models.FloatField()
-    #bonus2 = models.FloatField()
-    #bonus3 = models.FloatField()
-    #bonus4 = models.FloatField()
-    #bonus5 = models.FloatField()
-    #bonus6 = models.FloatField()
-
-    #Comprehension Checks
-    comprehension_check1 = models.IntegerField(
-        label="When is the second part of the study?",
+    belief_relative2 = models.IntegerField(
         choices=[
-            [1, "Today."],
-            [2, "Tomorrow."],
-            [3, "In two days."],
+            [i, f'{i}-{i + 10}%' if i == 0 else f'{i + 1}-{i + 10}%']
+            for i in range(0, 91, 10)
         ],
-        widget=widgets.RadioSelect
-    )
-
-    comprehension_check2 = models.IntegerField(
-        label="If you only complete the first part, what will be your payment?",
-        choices=[
-            [1, "The completion bonus for the first part plus the payment after the number of tasks you do."],
-            [2, "Only the completion bonus for the first part."],
-            [3, "Nothing."],
-        ],
-        widget=widgets.RadioSelect
-    )
-
-    comprehension_check3 = models.IntegerField(
-        label="How will you earn additional income on top of the completion bonuses?",
-        choices=[
-            [1, "The additional income will be based on the tasks you perform in the production stage"
-                ", but will be determined by decisions in the second part."],
-            [2, "The number of tasks you perform in the production stage will be your additional income."],
-            [3, "The additional income will entirely be determined by luck."],
-        ],
-        widget=widgets.RadioSelect
+        label="Wie schneiden Sie im Vergleich zum Rest der Gruppe ab?"
     )
 
     def set_outcome(self, outcome):
@@ -573,7 +539,7 @@ def custom_export(players):
     yield ['part1_session_code', 'part1_participant_code', 'prolific_id', 'completed_part1',
            'part1_start_time', 'part1_end_time', 'part1_completion_fee',
            'group', 'production', 'tasks1min', 'income', 'time', 'completed_tasks_productivity',
-           'tasks_done_during_practice']
+           'tasks_done_during_practice', 'performance_production', 'performance_practice']
 
     # data
     for p in players:
@@ -583,11 +549,10 @@ def custom_export(players):
         ps = p.session
         group = ppcomps.get('group', '')
         time = ppvars.get('time', '')
-        # task_length_treatment = ppvars.get('task_length_treatment', '')
         tasks_done_during_practice = ppvars.get('tasks_done_during_practice', '')
+        performance_production = p.performance_production  # Add the performance_production field
+        performance_practice = p.performance_practice
         yield [ps.code, pp.code, pp.label, ppvars['completed'], ppvars['start_time'],
                ppvars['end_time'], ps.config['participation_fee'], task_length_treatment,
                group, ppcomps['production'], ppcomps['tasks1min'], ppcomps['income'], time,
-               ppvars['completed_tasks_productivity'], tasks_done_during_practice]
-
-
+               ppvars['completed_tasks_productivity'], tasks_done_during_practice, performance_production, performance_practice]

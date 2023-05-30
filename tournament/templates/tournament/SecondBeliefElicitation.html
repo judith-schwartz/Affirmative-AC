@@ -19,8 +19,14 @@
 
 <div class="text">
     <p>
-        Bitte schätzen Sie Ihr Ergebnis aus Teil 2 ein. <br><br>
-        {% formfield player.belief_performance2 %}
+        Bevor Sie weitermachen, möchten wir Sie noch bitten, Ihre bisherige Leistung einzuschätzen. Für jede richtige
+        Einschätzung erhalten Sie {{ Constants.belief_payout }} EUR.<br><br>
+        {% formfield player.belief_performance2 %} <br>
+        Bitte schätzen Sie auch Ihre eigene Leistung im Vergleich zu den anderen Teilnehmern im Experiment ein. Dabei
+        bedeutet zum Beispiel ”0-10%”, dass Sie zu den 0-10% Teilnehmern mit den wenigsten gelösten Wörtern gehören,
+        während mindestens 90% der Teilnehmer mehr richtige Antworten gegeben haben als Sie. ”41-50%” bedeutet, dass
+        mindestens 40% der Teilnehmer weniger richtige Antworten und mindestens 50% mehr richtige Antworten als Sie
+        gegeben haben. ”91-100%” bedeutet, dass mindestens 90% weniger richtige Antworten gegeben haben als Sie.
         {% formfield player.belief_relative2 %}
     </p>
 

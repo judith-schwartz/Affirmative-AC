@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Allgemeine Fragen
+{% endblock %}
+
+{% block content %}
+<p>Sie beginnen nun den <b>zweiten Teil des Experimentes</b>. Bitte beantworten Sie die Fragen auf dieser und den
+    folgenden Seiten. Wenn Sie alle Fragen einer Seite beantwortet haben, klicken Sie bitte auf "Weiter".</p>
+
+{% formfield player.q_age %}
+{% formfield player.q_gender %}
+{% formfield player.q_occupation %}
+{% formfield player.q_study_field %}
+{% formfield player.q_n_experiment %}
+{% formfield player.q_math %}
+{% formfield player.q_GPA_now %}
+{% formfield player.q_abitur %}
+{% formfield player.q_budget %}
+{% formfield player.q_spending %}
+
+{% next_button %}
+
+{% endblock %}

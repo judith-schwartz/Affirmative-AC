@@ -1,0 +1,60 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Wie sehr stimmen sie den folgenden Aussage zu?
+{% endblock %}
+{% block content %}
+
+<p>
+<div class="row">
+  <div class="col">
+    <b>Sind Sie im Allgemeinen ein risikobereiter Mensch oder versuchen Sie, Risiken zu vermeiden?</b>
+    <table>
+      <tr>
+        <td class="align-top"> gar nicht risikobereit </td>
+        <td>{% formfield player.q_falk_risk label=""%}
+        <td>
+        <td class="align-top"> sehr risikobereit </td>
+    </table>
+  </div>
+</div>
+</p>
+
+<p>
+<div class="row">
+  <div class="col">
+    <b>
+      Sind Sie jemand, der im Allgemeinen bereit ist, unfaires Verhalten zu bestrafen,
+      auch wenn das für Sie mit Kosten verbunden ist, oder sind Sie dazu nicht bereit?
+    </b>
+    <table>
+      <tr>
+        <td class="align-top"> gar nicht bereit zu bestrafen </td>
+        <td>{% formfield player.q_falk_neg_rec label=""%}</td>
+        <td class="align-top"> sehr bereit zu bestrafen </td>
+    </table>
+  </div>
+</div>
+</p>
+
+<p>
+<div class="row">
+  <div class="col">
+    <b>
+      Wenn mir jemand einen Gefallen tut, bin ich bereit, diesen zu erwidern.
+    </b>
+    <table>
+      <tr>
+        <td class="align-top"> trifft gar nicht zu </td>
+        <td>{% formfield player.q_falk_pos_rec label=""%}</td>
+        <td class="align-top"> trifft voll zu </td>
+    </table>
+  </div>
+</div>
+</p>
+
+{% next_button %}
+
+
+{% endblock %}

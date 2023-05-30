@@ -29,7 +29,7 @@ dict(
         name='combined',
         display_name='combined',
         num_demo_participants=4,
-        app_sequence=['tournament', 'slider_noanchor', 'payment_info'],
+        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info'],
     ),
 dict(
         name='slider_noanchor',
