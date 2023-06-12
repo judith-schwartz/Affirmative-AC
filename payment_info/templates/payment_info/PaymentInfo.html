@@ -24,6 +24,46 @@
         ausgelost. Sie erhalten keinen Bonus.
         {% endif %}
     </p>
+<style>
+  td {
+    padding: 5px;
+  }
+
+  td.column1 {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  td.column2 {
+    text-align: right;
+    padding-left: 20px; /* Adjust the padding value as needed */
+  }
+</style>
+
+<table>
+  <tbody>
+    <tr>
+      <td class="column1">Bonus aus Wettbewerb:</td>
+      <td class="column2">{{ bonus }}</td>
+    </tr>
+    <tr>
+      <td class="column1">Bonus aus Einschätzung:</td>
+      <td class="column2">{{ belief_payout }}</td>
+    </tr>
+    <tr>
+      <td class="column1">Payoff aus Performance:</td>
+      <td class="column2">{{ performance_payout }}</td>
+    </tr>
+    <tr>
+      <td class="column1">Payoff:</td>
+      <td class="column2">{{ payoff }}</td>
+    </tr>
+    <tr>
+      <td class="column1">Payoff + Participation Fee:</td>
+      <td class="column2">{{ payoff_plus_participation_fee }}</td>
+    </tr>
+  </tbody>
+</table>
 
 
 

@@ -23,33 +23,50 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    bonus0 = models.FloatField()
-    bonus1 = models.FloatField()
-    bonus2 = models.FloatField()
-    bonus3 = models.FloatField()
-    bonus4 = models.FloatField()
-    bonus5 = models.FloatField()
-    bonus6 = models.FloatField()
-
+    bonus0 = models.FloatField(initial=-1)
+    bonus1 = models.FloatField(initial=-1)
+    bonus2 = models.FloatField(initial=-1)
+    bonus3 = models.FloatField(initial=-1)
+    bonus4 = models.FloatField(initial=-1)
+    bonus5 = models.FloatField(initial=-1)
+    bonus6 = models.FloatField(initial=-1)
 
 
 # PAGES
+class Start(Page):
+    def vars_for_template(self):
+        participated = self.participant.vars.get('Participated', False)
+        return {
+            'participated': participated
+        }
+
 class SliderPage(Page):
     form_model = 'player'
     form_fields = ['bonus0']
 
+    def is_displayed(self):
+        return self.participant.vars.get('Participated', False)
+
     def vars_for_template(self):
         # Access the outcome variable from participant vars
-        outcome = self.participant.vars['outcome']
-        print(outcome)
+        outcome = self.participant.vars.get('outcome')
 
-        # Access individual entries in the outcome dictionary
-        first_color = outcome['first_color']
-        second_color = outcome['second_color']
-        treatment = outcome['treatment']
-        first_place = outcome['first_place']
-        second_place = outcome['second_place']
-        green = outcome['green']
+        # Check if the outcome variable exists
+        if outcome:
+            first_color = outcome.get('first_color')
+            second_color = outcome.get('second_color')
+            treatment = outcome.get('treatment')
+            first_place = outcome.get('first_place')
+            second_place = outcome.get('second_place')
+            green = outcome.get('green')
+        else:
+            # Set default values when outcome is not available
+            first_color = None
+            second_color = None
+            treatment = None
+            first_place = None
+            second_place = None
+            green = None
 
         return {
             'first_color': first_color,
@@ -58,7 +75,7 @@ class SliderPage(Page):
             'first_place': first_place,
             'second_place': second_place,
             'green': green
-         }
+        }
 
 class AdditionalSliderPage(Page):
     form_model = 'player'
@@ -100,21 +117,30 @@ class AdditionalSliderPage(Page):
             # Get the selected outcomes from participant.vars
             selected_outcomes = self.participant.vars.get('selected_outcomes', [])
 
-            # Append participant's outcome to selected outcomes
-            selected_outcomes.append(self.participant.vars['outcome'])
+            # If the participant has an outcome, append it to selected outcomes
+            if 'outcome' in self.participant.vars:
+                selected_outcomes.append(self.participant.vars['outcome'])
+            else:
+                # Player does not have an outcome, handle the case
+                selected_outcomes.append({})  # Add an empty dictionary as a placeholder
 
-            # store the outcomes in formfield variables and participant var
-            for i in range(min(7, len(selected_outcomes))):  # Adjust range to allow for the additional outcome
-                bonus = getattr(self, f'bonus{i}')
-                selected_outcomes[i]['bonus'] = bonus  # store the bonus in the selected outcomes
+            # Store the outcomes in form field variables and participant var
+            for i, outcome in enumerate(selected_outcomes):
+                if i == 0:
+                    bonus = getattr(self, 'bonus0')
+                    if bonus == -1:
+                        outcome['bonus'] = -1
+                    else:
+                        outcome['bonus'] = bonus
+                else:
+                    bonus = getattr(self, f'bonus{i}')
+                    outcome['bonus'] = bonus
 
             # Save the selected outcomes back to the participant vars
             self.participant.vars['selected_outcomes'] = selected_outcomes
-
 class Results(Page):
     pass
 
 
-page_sequence = [SliderPage,
-                 AdditionalSliderPage,
-                 Results]
+page_sequence = [Start, SliderPage,
+                 AdditionalSliderPage]

@@ -1,0 +1,28 @@
+{{ block title }}
+    Teil 2
+{{ endblock }}
+
+{{ block content }}
+
+    <p>
+        Vielen Dank für Ihre bisherige Teilnahme an diesem Experiment!
+    </p>
+    <p>
+        Wir beginnen nun mit Teil 2 des Experiments. In diesem Teil dürfen Sie über die Verteilung der Boni im
+        vorangegangenen Wettbewerb bestimmen. Ihnen werden sechs <b>zufällig</b> gezogene Ergebnisse präsentiert und Sie
+        dürfen für jedes dieser Ergebnisse den Bonus von 10 EUR zwischen den beiden Gewinner:innen verteilen. Sie werden
+        dafür über die Farbe des ersten und zweiten Platzes informiert und ob es sich um einen Wettbewerb mit oder ohne
+        Reservierung handelt. Sie dürfen dann mit einem Schieberegler entscheiden, welchen Betrag der erste Platz Ihrer
+        Meinung nach erhalten soll. Der zweite Platz erhält automatisch 10 EUR minus den gewählten Betrag.
+        Für jedes Ergebnis werden die Verteilungsvorschläge gesammelt und eine der Verteilungen zufällig für jeden Gewinner
+        ausgewählt.
+    </p>
+    {% if participated %}
+    <p>
+        Da Sie sich entschieden haben an mindestens einem Wettbewerb teilzunehmen und dieser Wettbewerb ausgewählt wurde,
+        dürfen Sie zusätzlich über den Bonus in Ihrer eigenen Gruppe abstimmen.
+    </p>
+    {% endif %}
+
+    {{ next_button }}
+{{ endblock }}

@@ -152,3 +152,11 @@ mgslider.prototype.reveal = function (event) {
     document.getElementById(this.id()).value = now;
     this.change();
 };
+
+// Add this method to the mgslider prototype
+mgslider.prototype.updateCurrentValue = function() {
+    var currentValue = this.value();
+    var oppositeValue = this.max - currentValue;
+    document.getElementById(this.id("cur")).innerHTML = this.f2s(currentValue, false);
+    document.getElementById(this.id("opposite")).innerHTML = this.f2s(oppositeValue, false);
+};

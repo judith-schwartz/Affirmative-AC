@@ -7,6 +7,7 @@
         .mgslider-wrapper {
             border-spacing: 10px;
         }
+
         .mgslider-limit {
             width: 10%;
             min-width: 75px;
@@ -16,43 +17,82 @@
             background: #eee;
             border: 1px solid #888;
         }
+
         .mgslider-limit, .mgslider-value {
             font-variant-numeric: tabular-nums;
         }
+
         .mgslider-before {
             height: 16px;
             width: 100%;
             background: #1e5bff;
         }
+
         .mgslider-feedback {
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
+
+        .mgslider-show {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+    </style>
+    <style>
+      td {
+        padding: 5px;
+      }
+
+      td.column1 {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      td.column2 {
+        text-align: right;
+        padding-left: 20px; /* Adjust the padding value as needed */
+      }
     </style>
 
     {{ formfield_errors 'bonus0' }}
     <p>
         Die Ergebnisse des Wettbewerbs wurden berechnet. Sie haben nun die Möglichkeit über den Bonus für die Gewinner zu
         entscheiden, indem Sie die Gesamtsumme von 10 EUR auf die Gewinner verteilen.
-        {% if treatment == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color == 'green' %}
+                    Grün
+                    {% elif first_color == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color == 'green' %}
+                    Grün
+                    {% elif second_color == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
 
-        {% if first_color == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
-        <br>
         {% if first_place %}
         Sie haben den ersten Platz in Ihrer Gruppe gewonnen.
         {% elif second_place %}

@@ -220,6 +220,7 @@ class Group(BaseGroup):
      def tournament_outcome(self):
 
         # Create list of tournament participants
+        participating_players = []
         control_green = []
         control_blue = []
         treat_green = []
@@ -238,19 +239,23 @@ class Group(BaseGroup):
                     control_green.append(p)
                     control_green_performance.append(p.performance_production)
                     p.participant.vars['Participated'] = True
+                    participating_players.append(p)
                 elif p.part_treat and not p.control_treatment:
                     treat_green.append(p)
                     treat_green_performance.append(p.performance_production)
                     p.participant.vars['Participated'] = True
+                    participating_players.append(p)
             else:
                 if p.part_control and p.control_treatment:
                     control_blue.append(p)
                     control_blue_performance.append(p.performance_production)
                     p.participant.vars['Participated'] = True
+                    participating_players.append(p)
                 elif p.part_treat and not p.control_treatment:
                     treat_blue.append(p)
-                    treat_blue_performance.append((p.performance_production))
+                    treat_blue_performance.append(p.performance_production)
                     p.participant.vars['Participated'] = True
+                    participating_players.append(p)
 
         # list of tounament outcomes
         outcome_tuple_green_treat = list(zip(treat_green_performance, treat_green))
@@ -258,8 +263,8 @@ class Group(BaseGroup):
         outcome_tuple_blue_treat = list(zip(treat_blue_performance, treat_blue))
         outcome_tuple_blue_control = list(zip(control_blue_performance, control_blue))
 
-        # get groups and ranking
-        for p in all_players:
+        # get groups and ranking (only for participating players)
+        for p in participating_players:
             if p.part_control and p.control_treatment:
                 group = []
 
@@ -343,9 +348,6 @@ class Group(BaseGroup):
                 p.set_outcome(outcome)
                 print(outcome)
                 all_outcomes.append(outcome)
-
-
-
 
 
             # tournament ranking under affirmative action
@@ -436,6 +438,13 @@ class Group(BaseGroup):
 
                 all_outcomes.append(outcome)
 
+                # Exclude non-participating players from the loop
+        for p in all_players:
+            if p not in participating_players:
+                # Player does not participate in the tournament, leave outcome empty
+                outcome = {}
+                p.set_outcome(outcome)
+
         for p in all_players:
             p.set_all_outcome(all_outcomes)
 
@@ -494,6 +503,8 @@ class Player(BasePlayer):
         label="Wie schneiden Sie im Vergleich zum Rest der Gruppe ab?"
     )
 
+
+
     def set_outcome(self, outcome):
         self.participant.vars['outcome'] = outcome
 
@@ -532,6 +543,22 @@ class Player(BasePlayer):
 
     def vars_for_template(self):
         return {'form': PlayerForm(instance=self)}
+
+    def save_player_variables_as_participant_variables(self):
+        # Access the participant associated with the player
+        participant = self.participant
+
+        # Save the player variables as participant variables
+        participant.performance_production = self.performance_production
+        participant.performance_practice = self.performance_practice
+        participant.belief_performance1 = self.belief_performance1
+        participant.belief_relative1 = self.belief_relative1
+        participant.belief_performance2 = self.belief_performance2
+        participant.belief_relative2 = self.belief_relative2
+
+        # Print the assigned value to check
+        print(f"Assigned performance_production to participant: {participant.performance_production}")
+
 
 
 def custom_export(players):

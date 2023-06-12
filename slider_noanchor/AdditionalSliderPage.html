@@ -30,32 +30,68 @@
             user-select: none;
         }
     </style>
+
+    <style>
+      td {
+        padding: 5px;
+      }
+
+      td.column1 {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      td.column2 {
+        text-align: right;
+        padding-left: 20px; /* Adjust the padding value as needed */
+      }
+    </style>
+
         {{ formfield_errors 'bonus1' }}
         {{ formfield_errors 'bonus2' }}
         {{ formfield_errors 'bonus3' }}
         {{ formfield_errors 'bonus4' }}
         {{ formfield_errors 'bonus5' }}
         {{ formfield_errors 'bonus6' }}
+    <p>
+        Die Ergebnisse des Wettbewerbs wurden berechnet. Sie haben nun die Möglichkeit über den Bonus für die Gewinner zu
+        entscheiden, indem Sie die Gesamtsumme von 10 EUR auf die Gewinner verteilen.
+    </p>
 
     <!-- First outcome -->
     <p>
-        {% if treatment1 == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment1 == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
-
-        {% if first_color1 == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color1 == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color1 == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color1 == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color1 == 'green' %}
+                    Grün
+                    {% elif first_color1 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color1 == 'green' %}
+                    Grün
+                    {% elif second_color1 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment1 == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment1 == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </p>
 
     <div id="slider1_here"></div>
@@ -69,23 +105,38 @@
 
     <!-- 2n outcome -->
     <p>
-        {% if treatment2 == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment2 == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
-
-        {% if first_color2 == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color2 == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color2 == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color2 == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color2 == 'green' %}
+                    Grün
+                    {% elif first_color2 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color2 == 'green' %}
+                    Grün
+                    {% elif second_color2 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment2 == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment2 == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </p>
 
     <div id="slider2_here"></div>
@@ -98,23 +149,38 @@
     </script>
     <!-- 3rd outcome -->
     <p>
-        {% if treatment3 == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment3 == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
-
-        {% if first_color3 == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color3 == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color3 == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color3 == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color3 == 'green' %}
+                    Grün
+                    {% elif first_color3 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color3 == 'green' %}
+                    Grün
+                    {% elif second_color3 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment3 == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment3 == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </p>
 
     <div id="slider3_here"></div>
@@ -128,23 +194,38 @@
 
 <!-- 4th outcome -->
     <p>
-        {% if treatment4 == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment4 == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
-
-        {% if first_color4 == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color4 == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color4 == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color4 == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color4 == 'green' %}
+                    Grün
+                    {% elif first_color4 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color4 == 'green' %}
+                    Grün
+                    {% elif second_color4 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment4 == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment4 == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </p>
 
     <div id="slider4_here"></div>
@@ -158,23 +239,38 @@
 
 <!-- 5th outcome -->
     <p>
-        {% if treatment5 == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment5 == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
-
-        {% if first_color5 == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color5 == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color5 == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color5 == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color5 == 'green' %}
+                    Grün
+                    {% elif first_color5 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color5 == 'green' %}
+                    Grün
+                    {% elif second_color5 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment5 == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment5 == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </p>
 
     <div id="slider5_here"></div>
@@ -188,23 +284,38 @@
 
 <!-- 6th outcome -->
     <p>
-        {% if treatment6 == 'control' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz <b>nicht</b> für grüne Spieler reserviert.
-        {% elif treatment6 == 'treatment' %}
-        Im ausgewählten Wettbewerb wurde der erste Platz für grüne Spieler reserviert.
-        {% endif %}
-
-        {% if first_color6 == 'green' %}
-        Der erste Platz ging an einen grünen Spieler.
-        {% elif first_color6 == 'blue' %}
-        Der erste Platz ging an einen blauen Spieler.
-        {% endif %}
-
-        {% if second_color6 == 'green' %}
-        Der zweite Platz ging an einen grünen Spieler.
-        {% elif second_color6 == 'blue' %}
-        Der zweite Platz ging an einen blauen Spieler.
-        {% endif %}
+        <table>
+            <tr>
+                <th>Erster Platz</th>
+                <td>
+                    {% if first_color6 == 'green' %}
+                    Grün
+                    {% elif first_color6 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Zweiter Platz</th>
+                <td>
+                    {% if second_color6 == 'green' %}
+                    Grün
+                    {% elif second_color6 == 'blue' %}
+                    Blau
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Wettbewerb</th>
+                <td>
+                    {% if treatment6 == 'control' %}
+                        ohne Reservierung
+                    {% elif treatment6 == 'treatment' %}
+                        mit Reservierung
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </p>
 
     <div id="slider6_here"></div>

@@ -153,7 +153,7 @@ class Production(Page):
             ppcomps['production'] = 0
         else:
             ppcomps['production'] = p.performance_production
-        ppcomps['income'] = ppcomps['production'] * Constants.tokens_per_task
+        #ppcomps['income'] = ppcomps['production'] * Constants.tokens_per_task
 
         print('Components so far are', ppcomps)
 
@@ -182,11 +182,17 @@ class SecondBeliefElicitation(Page):
     form_model = 'player'
     form_fields = ['belief_performance2', 'belief_relative2']
 
+    def before_next_page(self):
+        print("Before next page method called")
+        self.player.save_player_variables_as_participant_variables()
+
 
 class BeforeBonus(WaitPage):
     after_all_players_arrive = 'tournament_outcome'
 
-    #before_next_page = 'set_outcome'
+    #def before_next_page(self):
+        #print("Before next page method called")
+        #self.player.save_player_variables_as_participant_variables()
 
 
 class Bonus(Page):

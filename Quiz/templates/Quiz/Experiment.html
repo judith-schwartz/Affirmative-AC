@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Entscheidungen im Experiment
+{% endblock %}
+
+{% block content %}
+<p> Wenn Sie alle Fragen einer Seite beantwortet haben, klicken Sie bitte auf "Weiter".</p>
+
+<p>
+    <div class="row">
+      <div class="col">
+        <b>
+          Wie fair fanden Sie es, dass in einem Wettbewerb der erste Platz für grüne Teilnehmer reserviert wurde?
+        </b>
+        <table>
+          <tr>
+            <td class="align-top"> gar nicht fair </td>
+            <td>{% formfield player.q_exp_fairness label=""%}</td>
+            <td class="align-top"> sehr fair </td>
+        </table>
+      </div>
+    </div>
+</p>
+
+{% formfield player.q_exp_distribution %}
+
+<p> Sie beobachten das Ergebnis eines Wettbewerbs <b>mit Reservierung</b>. Der erste Platz geht an eine:n Teilnehmer:in
+der <b>grünen</b> Gruppe. Der zweite Platz geht an eine:n Teilnehmer:in der <b>blauen</b> Gruppe.</p>
+{% formfield player.q_exp_correct1 %}
+{% formfield player.q_exp_correct2 %}
+
+
+{% next_button %}
+
+{% endblock %}

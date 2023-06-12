@@ -19,64 +19,72 @@
 
 <div class="text">
     <p>
+        Sie haben die Produktionsphase abgeschlossen und wurden in zwei unterschiedliche Gruppen gelost. Die Gruppen
+        werden <b>BLAU</b> und <b>GRÜN</b> genannt.
+    </p>
+    <p>
         {% if pgreen %}
-        Sie wurden der Gruppe <b>Grün</b> zugeteilt.
+        Sie wurden der Gruppe <b>GRÜN</b> zugeteilt.
         {% else %}
-        Sie wurden der Gruppe <b>Blau</b> zugeteilt.
+        Sie wurden der Gruppe <b>BLAU</b> zugeteilt.
         {% endif %}
     </p>
     <p>
-        Sie haben nun die Möglichkeit, Ihre bisherigen Gewinne zu investieren. Für 2 EUR können Sie an einem Wettbewerb
-        teilnehmen. Die Gewinner:innen erhalten ihren Einsatz zurück und zusätzlichen einen Bonus zwischen 0 und 10 EUR.
-        Die Verlierer:innen erhalten ihren Einsatz nicht zurück und keinen Bonus.
+        Sie können nun einen Teil Ihres bisherigen Verdienstes nutzen und an einem Wettbewerb teilnehmen. Die Regeln für
+        den Wettbewerb sind wie folgt:
     </p>
     <p>
-       Wenn Sie an diesem Wettbewerb teilnehmen möchten, wird Ihr Ergebnis aus dem vorangegangen Teil 2 mit dem Ergebnis
+       Wenn Sie an diesem Wettbewerb teilnehmen möchten, wird Ihr Ergebnis aus der vorangegangenen Produktionsrunde mit dem Ergebnis
         der anderen Teilnehmer:innen im Wettbewerb verglichen. Sie werden hierzu einer Gruppe mit insgesamt vier
-        Teilnehmer:innen zugelost. Zwei Teilnehmer:innen gehören der Gruppe GRÜN an und zwei der Gruppe BLAU.
+        Teilnehmer:innen zugelost. Zwei Teilnehmer:innen gehören der Gruppe GRÜN an und zwei der Gruppe BLAU. In jeder
+        Gruppe gibt es zwei Gewinner:innen, die einen Bonus zwischen 0 und 10 EUR erhalten.
     </p>
     <p>
-       Es gibt zwei mögliche Wettbewerbe für die Sie sich entscheiden können: <br><br>
+       Es gibt zwei mögliche Wettbewerbe, für die Sie sich entscheiden können: <br><br>
         {% if pcontrol_first %}
-        <b>Wettbewerb 1:</b> Von allen vier Teilnehmer:innen, gewinnen die beiden Teilnehmer:innen, die im vorangegangenen
-        Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. <br>
-        <b>Wettbewerb 2:</b> Von allen vier Teilnehmer:innen gewinnt den ersten Platz, die Teilnehmer:in aus Gruppe <b>Grün</b>,
-        die im vorangegangenen Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. Der zweite Platz geht an die
+        <b>Wettbewerb ohne Reservierung:</b> Von allen vier Teilnehmer:innen, gewinnen die beiden Teilnehmer:innen,
+        die in der vorangegangenen Produktionsrunde die höchste Anzahl an Aufgaben korrekt lösen konnten. Es werden keine Plätze reserviert.<br>
+        <b>Wettbewerb mit Reservierung:</b> Der erste Platz ist für die Teilnehmer:in aus Gruppe <b>GRÜN</b> reserviert,
+        die in der vorangegangenen Produktionsrunde die höchste Anzahl an Aufgaben korrekt lösen konnten. Der zweite Platz geht an die
         Teilnehmer:in, die aus den verbliebenen drei Gruppenmitgliedern die höchste Anzahl an Aufgaben korrekt lösen konnte.
         {% else %}
-        <b>Wettbewerb 1:</b> Von allen vier Teilnehmer:innen gewinnt den ersten Platz, die Teilnehmer:in aus Gruppe <b>Grün</b>,
+        <b>Wettbewerb mit Reservierung:</b> Der erste Platz ist für die Teilnehmer:in aus Gruppe <b>GRÜN</b> reserviert,
         die im vorangegangenen Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. Der zweite Platz geht an die
         Teilnehmer:in, die aus den verbliebenen drei Gruppenmitgliedern die höchste Anzahl an Aufgaben korrekt lösen konnte. <br>
-        <b>Wettbewerb 2:</b> Von allen vier Teilnehmer:innen, gewinnen die beiden Teilnehmer:innen, die im vorangegangenen
-        Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten.
+        <b>Wettbewerb ohne Reservierung:</b> Von allen vier Teilnehmer:innen, gewinnen die beiden Teilnehmer:innen, die im vorangegangenen
+        Teil 2 die höchste Anzahl an Aufgaben korrekt lösen konnten. Es werden keine Plätze reserviert.
         {% endif %}
     </p>
     <p>
-        Sie werden mit einer Wahrscheinlichkeit von 50% zu Wettbewerb 1 und mit 50% zu Wettbewerb 2 gelost. Sie können
-        sich dafür entscheiden, ob Sie nur an einem der beiden Wettbewerbe, an beiden oder an keinem Wettbewerb
-        teilnehmen möchten.
+        Sie werden mit einer Wahrscheinlichkeit von 50% zu dem Wettbewerb ohne Reservierung und mit 50% zu dem Wettbewerb
+        ohne Reservierung gelost. Die Auslosung ist unabhängig von Ihrer Entscheidung. Sie können sich dafür entscheiden,
+        ob Sie nur an einem der beiden Wettbewerbe, an
+        beiden oder an keinem Wettbewerb teilnehmen möchten. Wenn Sie an einem Wettbewerb teilnehmen wollten, der nicht
+        ausgewählt wurde, haben Sie dafür keine Kosten. Die Kosten entstehen nur, wenn Sie teilnehmen wollten und dieser
+        Wettbewerb für Sie ausgewählt wurde.
     </p>
     <p>
         Nach Ihrer Entscheidung werden Sie einem Wettbewerb zugelost. Wenn Sie an diesem Wettbewerb teilnehmen wollten,
         wird Ihr Ergebnis wie oben erklärt mit dem der anderen Teilnehmer:innen verglichen und bestimmt, welchen Platz
         Sie in Ihrer Gruppe einnehmen. <b>Wenn Sie gewonnen haben, werden Ihnen keine Kosten abgezogen und Ihr Bonus wird
-        im nächsten Teil bestimmt. Wenn Sie verloren haben, werden Ihnen die Kosten von 2 EUR abgezogen. Wenn Sie an dem
+        im nächsten Teil bestimmt. </b>Der Bonus liegt zwischen 0 und 10 EUR. <b>Wenn Sie verloren haben, werden Ihnen
+        die Kosten von 2 EUR von ihrem bisherigen Verdienst in diesem Experiment abgezogen. Wenn Sie an dem
         Wettbewerb nicht teilnehmen wollten, werden Ihnen keine Kosten abgezogen und Sie erhalten auch keinen Bonus.</b>
     </p>
     <p>
         {% if pcontrol_first %}
-        Möchten Sie an <b> Wettbewerb 1</b> teilnehmen?
+        Möchten Sie an <b> Wettbewerb ohne Reservierung</b> teilnehmen?
         {% formfield player.part_control %}
-        Möchten Sie an <b> Wettbewerb 2</b> teilnehmen?
+        Möchten Sie an <b> Wettbewerb mit Reservierung</b> teilnehmen?
         {% formfield player.part_treat %}
         {% else %}
-        Möchten Sie an <b> Wettbewerb 1</b> teilnehmen?
+        Möchten Sie an <b> Wettbewerb mit Reservierung</b> teilnehmen?
         {% formfield player.part_treat %}
-        Möchten Sie an <b> Wettbewerb 2</b> teilnehmen?
+        Möchten Sie an <b> Wettbewerb ohne Reservierung</b> teilnehmen?
         {% formfield player.part_control %}
         {% endif %}
     </p>
-    <p> Please click on the Next button to proceed. </p>
+    <p> Bitte klicken Sie auf weiter, um fortzufahren. </p>
 </div>
     {% next_button %}
 
