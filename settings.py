@@ -12,26 +12,29 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['survey', 'payment_info'],
     ),
-dict(
+    dict(
         name='4',
         display_name='4',
         num_demo_participants=4,
         app_sequence=['tournament'],
     ),
-dict(
+    dict(
         name='8',
         display_name='8',
         num_demo_participants=8,
         app_sequence=['tournament'],
 
     ),
-dict(
+    dict(
         name='combined',
         display_name='combined',
         num_demo_participants=4,
-        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info'],
+        expShortName="ECT",
+        expId=10,
+        sessId=71,
+        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info', 'payment'],
     ),
-dict(
+    dict(
         name='slider_noanchor',
         display_name='slider_noanchor',
         num_demo_participants=1,
