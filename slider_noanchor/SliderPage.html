@@ -58,8 +58,8 @@
 
     {{ formfield_errors 'bonus0' }}
     <p>
-        Die Ergebnisse des Wettbewerbs wurden berechnet. Sie haben nun die Möglichkeit über den Bonus für die Gewinner zu
-        entscheiden, indem Sie die Gesamtsumme von 10 EUR auf die Gewinner verteilen.
+        Die Ergebnisse des Wettbewerbs wurden berechnet. Sie haben nun die Möglichkeit über den Bonus für die
+        Gewinner:innen zu entscheiden, indem Sie die Gesamtsumme von 10 EUR auf die Gewinner verteilen.
         <table>
             <tr>
                 <th>Erster Platz</th>
@@ -87,7 +87,7 @@
                     {% if treatment == 'control' %}
                         ohne Reservierung
                     {% elif treatment == 'treatment' %}
-                        mit Reservierung
+                        mit Reservierung für GRÜN
                     {% endif %}
                 </td>
             </tr>
@@ -111,7 +111,7 @@
 
     <div id="sliders_here"></div>
 
-    <script src="{{ static 'mgslider.js' }}"></script>
+    <script src="{{ static 'mgslider_userversion.js' }}"></script>
 
     <script>
         $(document).ready(function (event) {

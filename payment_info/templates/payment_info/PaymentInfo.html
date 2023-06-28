@@ -2,23 +2,26 @@
 {% load otree %}
 
 {% block title %}
-    Thank you
+    Auszahlungsseite
 {% endblock %}
 
 {% block content %}
 
     <p>
         {% if participated %}
-        Sie haben sich entschlossen an einem Wettbewerb teilzunehmen. In dem für sie ausgelosten Wettbewerb war
-            {% if treatment == 'treatment' %} der erste Platz für grüne Spieler reserviert.
-            {% elif treatment == 'control' %} der erste Platz <b>nicht </b> reserviert.
+        Sie haben sich entschlossen an einem Wettbewerb teilzunehmen und {% if first_place %} den <b>ersten Platz</b>
+        gewonnen. {% elif second_place %} den zweiten Platz gewonnen. {% else %} nicht gewonnen. {% endif %} <br>
+
+        Alle Teilnehmenden hatten die Möglichkeit einen Bonus für die unterschiedlichen Wettbewerbsergebnisse vorzuschlagen.
+        Für Sie wurde unter allen Verteilungen für einen Wettbewerb, in dem
+            {% if treatment == 'treatment' %} der erste Platz für grüne Spieler reserviert
+            {% elif treatment == 'control' %} der erste Platz <b>nicht </b> reserviert
             {% endif %}
-        Sie haben {% if first_place %} den <b>ersten Platz</b> gewonnen. {% elif second_place %} den zweiten Platz gewonnen. {% else %} nicht gewonnen. {% endif %} <br>
-        Alle Teilnehmenden hatten die Möglichkeit einen Bonus vorzuschlagen. Für Sie wurde unter allen Verteilungen für
-        Ihren Wettbewerb mit dem Ergebnis <br>
-            Erster Platz: {% if first_color == 'green' %} <b>Grün</b> {% elif first_color == 'blue' %} <b> Blau</b> {% endif %} <br>
-            Zweiter Platz: {% if second_color == 'green' %} <b>Grün</b> {% elif second_color == 'blue' %} <b> Blau</b> {% endif %}<br>
-        ein Bonus von {{ bonus }} ausgewählt.
+            war und der erste Platz
+            {% if first_color == 'green' %} <b>Grün</b> {% elif first_color == 'blue' %} <b> Blau</b> {% endif %}
+            und der zweite Platz
+            {% if second_color == 'green' %} <b>Grün</b> {% elif second_color == 'blue' %} <b> Blau</b> {% endif %}
+            war, ein Bonus von {{ bonus }} ausgewählt.
         {% else %}
         Sie haben sich dagegen entschieden, an einem Wettbewerb teilzunehmen, oder der gewählte Wettbewerb wurde nicht
         ausgelost. Sie erhalten keinen Bonus.
@@ -43,7 +46,7 @@
 <table>
   <tbody>
     <tr>
-      <td class="column1">Bonus aus Wettbewerb:</td>
+      <td class="column1">{% if bonus < 0 %}Kosten für Wettbewerb{% else %}Bonus aus Wettbewerb{% endif %}:</td>
       <td class="column2">{{ bonus }}</td>
     </tr>
     <tr>
@@ -51,15 +54,15 @@
       <td class="column2">{{ belief_payout }}</td>
     </tr>
     <tr>
-      <td class="column1">Payoff aus Performance:</td>
+      <td class="column1">Produktionsphase:</td>
       <td class="column2">{{ performance_payout }}</td>
     </tr>
     <tr>
-      <td class="column1">Payoff:</td>
+      <td class="column1">Auszahlung:</td>
       <td class="column2">{{ payoff }}</td>
     </tr>
     <tr>
-      <td class="column1">Payoff + Participation Fee:</td>
+      <td class="column1">Auszahlung + Show-up:</td>
       <td class="column2">{{ payoff_plus_participation_fee }}</td>
     </tr>
   </tbody>

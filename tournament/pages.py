@@ -159,6 +159,7 @@ class Production(Page):
 
 
 class BeforeTournament(WaitPage):
+    template_name = 'tournament/MyWaitPage.html'
     after_all_players_arrive = 'tournament_group'
 
 
@@ -188,6 +189,7 @@ class SecondBeliefElicitation(Page):
 
 
 class BeforeBonus(WaitPage):
+    template_name = 'tournament/MyWaitPage.html'
     after_all_players_arrive = 'tournament_outcome'
 
     #def before_next_page(self):

@@ -37,7 +37,7 @@ function mgslider(field, min, max, step) {
     this.hook = function (slider, value) {};
 
     this.prefix = "mgslider_yF5sTZLy";
-    this.yourvalue = "Here";
+    this.yourvalue = "Wert";
 
     mgsliders.push({field: field, obj: this});
 }
