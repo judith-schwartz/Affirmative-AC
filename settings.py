@@ -10,7 +10,7 @@ SESSION_CONFIGS = [
         name='survey',
         display_name='survey',
         num_demo_participants=1,
-        app_sequence=['survey', 'payment_info'],
+        app_sequence=['payment_info'],
     ),
     dict(
         name='4',
@@ -32,7 +32,7 @@ SESSION_CONFIGS = [
         expShortName="ECT",
         expId=10,
         sessId=71,
-        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info', 'payment'],
+        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info'],
     ),
     dict(
         name='slider_noanchor',
