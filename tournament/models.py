@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     name_in_url = 'single'
     players_per_group = None
     num_rounds = 1
-    performance_payout = 0.05
+    performance_payout = 0.10
     belief_payout = 0.5
 
     # Task constants
@@ -47,7 +47,7 @@ class Constants(BaseConstants):
     practice_seconds = 60
     practice_minutes = round(practice_seconds / 60)
     production_use_timeout = True
-    production_seconds = 60  # This will be the duration of the production part -- 15 min = 900 secs
+    production_seconds = 420  # This will be the duration of the production part -- 15 min = 900 secs
     production_minutes = round(production_seconds / 60)
 
 
