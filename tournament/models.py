@@ -225,10 +225,14 @@ class Group(BaseGroup):
         control_blue = []
         treat_green = []
         treat_blue = []
+        other_green = []
+        other_blue = []
         control_green_performance = []
         control_blue_performance = []
         treat_green_performance = []
         treat_blue_performance = []
+        other_green_performance = []
+        other_blue_performance = []
         all_players = self.get_players()
         all_outcomes = []
 
@@ -245,6 +249,9 @@ class Group(BaseGroup):
                     treat_green_performance.append(p.performance_production)
                     p.participant.vars['Participated'] = True
                     participating_players.append(p)
+                else:
+                    other_green.append(p)
+                    other_green_performance.append(p.performance_production)
             else:
                 if p.part_control and p.control_treatment:
                     control_blue.append(p)
@@ -256,12 +263,23 @@ class Group(BaseGroup):
                     treat_blue_performance.append(p.performance_production)
                     p.participant.vars['Participated'] = True
                     participating_players.append(p)
+                else:
+                    other_blue.append(p)
+                    other_blue_performance.append(p.performance_production)
+
+
+        # Handle the remaining players who have not made a choice
+        for p in all_players:
+            if p not in participating_players:
+                p.participant.vars['Participated'] = False
 
         # list of tounament outcomes
         outcome_tuple_green_treat = list(zip(treat_green_performance, treat_green))
         outcome_tuple_green_control = list(zip(control_green_performance, control_green))
         outcome_tuple_blue_treat = list(zip(treat_blue_performance, treat_blue))
         outcome_tuple_blue_control = list(zip(control_blue_performance, control_blue))
+        outcome_tuple_other_blue = list(zip(other_blue_performance, other_blue))
+        outcome_tuple_other_green = list(zip(other_green_performance, other_green))
 
         # get groups and ranking (only for participating players)
         for p in participating_players:
@@ -278,20 +296,36 @@ class Group(BaseGroup):
                                         :2 - len(outcome_tuple_green_control)]
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][
                                        :2 - len(outcome_tuple_blue_control)]
+                        # Add non-participating green players from other_green if needed
+                        green_players.extend(
+                            [random.choice(outcome_tuple_other_green) for _ in range(2 - len(green_players))])
                     else:
                         green_players = [x for x in outcome_tuple_green_control if x not in group][:1]
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][:2]
+
+                    # Add non-participating blue players from outcome_tuple_blue_treat and other_blue if needed
+                    blue_players.extend([random.choice(outcome_tuple_blue_treat + outcome_tuple_other_blue)
+                                         for _ in range(2 - len(blue_players))])
+
                     group.extend(green_players)
                     group.extend(blue_players)
                 else:
                     if len(outcome_tuple_blue_control) < 2:
                         blue_players = [x for x in outcome_tuple_blue_treat if x not in group][
                                        :2 - len(outcome_tuple_blue_control)]
-                        green_players = [x for x in outcome_tuple_green_control if x not in group][
-                                        :2 - len(outcome_tuple_green_control)]
+                        green_players = [x for x in outcome_tuple_green_treat if x not in group][
+                                        :2 - len(outcome_tuple_green_treat)]
+                        # Add non-participating blue players from other_blue if needed
+                        blue_players.extend(
+                            [random.choice(outcome_tuple_other_blue) for _ in range(2 - len(blue_players))])
                     else:
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][:1]
                         green_players = [x for x in outcome_tuple_green_control if x not in group][:2]
+
+                    # Add non-participating green players from outcome_tuple_green_treat and other_green if needed
+                    green_players.extend([random.choice(outcome_tuple_green_treat + outcome_tuple_other_green)
+                                          for _ in range(2 - len(green_players))])
+
                     group.extend(blue_players)
                     group.extend(green_players)
 

@@ -86,6 +86,19 @@ class AdditionalSliderPage(Page):
         all_outcomes = self.participant.vars['all_outcomes']
         selected_outcomes = []
 
+        # If there are less than 4 outcomes, add default options
+        while len(all_outcomes) < 4:
+            default_outcomes = [
+                {'first_color': 'green', 'second_color': 'green', 'treatment': 'control'},
+                {'first_color': 'green', 'second_color': 'blue', 'treatment': 'control'},
+                {'first_color': 'blue', 'second_color': 'green', 'treatment': 'control'},
+                {'first_color': 'blue', 'second_color': 'blue', 'treatment': 'control'},
+                {'first_color': 'green', 'second_color': 'green', 'treatment': 'treatment'},
+                {'first_color': 'green', 'second_color': 'blue', 'treatment': 'treatment'}
+            ]
+            random.shuffle(default_outcomes)
+            all_outcomes += default_outcomes
+
         # If there are less than 6 outcomes, duplicate them until we have at least 6
         while len(all_outcomes) < 6:
             all_outcomes += all_outcomes

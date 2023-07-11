@@ -197,9 +197,6 @@ class BeforeBonus(WaitPage):
         #self.player.save_player_variables_as_participant_variables()
 
 
-class Bonus(Page):
-    form_model = 'player'
-    form_fields = 'bonus'
 
 
 page_sequence = [Welcome,

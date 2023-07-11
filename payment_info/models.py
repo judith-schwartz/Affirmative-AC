@@ -38,6 +38,10 @@ class Subsession(BaseSubsession):
         self.session.vars['C_GG'] = []
         self.session.vars['C_BB'] = []
 
+        participating_players = [p for p in self.get_players() if p.participant.vars.get('Participated', False)]
+        if not participating_players:
+            return
+
         for p in self.get_players():
             selected_outcomes = p.participant.vars['selected_outcomes']
 
@@ -105,7 +109,11 @@ class Player(BasePlayer):
                     elif second_place:
                         self.bonus = c(10) - selected_bonus
                 else:
-                    self.bonus = -Constants.tournament_fee
+                    selected_bonus = round(random.uniform(0, 10), 2)  # Random value between 0 and 10 with 0.01 increments
+                    if first_place:
+                        self.bonus = selected_bonus
+                    elif second_place:
+                        self.bonus = c(10) - selected_bonus
             else:
                 self.bonus = -Constants.tournament_fee
 
