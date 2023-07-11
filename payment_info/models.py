@@ -21,7 +21,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     tournament_fee = 2
-    performance_fee = 0.05
+    performance_fee = 0.10
     belief_fee = 0.5
 
 
