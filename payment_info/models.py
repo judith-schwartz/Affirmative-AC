@@ -49,7 +49,10 @@ class Subsession(BaseSubsession):
                 if not outcome:  # Check if the outcome dictionary is empty
                     continue  # Skip this iteration and move to the next outcome
 
-                bonus = outcome['bonus']
+                bonus = outcome.get('bonus')  # Retrieve the 'bonus' value from the outcome dictionary
+                if bonus is None:  # Skip appending if the bonus is empty
+                    continue
+
                 treatment = outcome.get('treatment', '')  # Use dict.get() to handle missing key
                 first_color = outcome.get('first_color', '')
                 second_color = outcome.get('second_color', '')

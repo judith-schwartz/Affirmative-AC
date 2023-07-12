@@ -298,15 +298,15 @@ class Group(BaseGroup):
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][
                                        :2 - len(outcome_tuple_blue_control)]
                         # Add non-participating green players from other_green if needed
-                        #green_players.extend(
-                         #   [random.choice(outcome_tuple_other_green) for _ in range(2 - len(green_players))])
+                        green_players.extend(
+                            [random.choice(outcome_tuple_other_green) for _ in range(2 - len(green_players))])
                     else:
                         green_players = [x for x in outcome_tuple_green_control if x not in group][:1]
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][:2]
 
                     # Add non-participating blue players from outcome_tuple_blue_treat and other_blue if needed
-                    #blue_players.extend([random.choice(outcome_tuple_blue_treat + outcome_tuple_other_blue)
-                                         #for _ in range(2 - len(blue_players))])
+                    blue_players.extend([random.choice(outcome_tuple_blue_treat + outcome_tuple_other_blue)
+                                         for _ in range(2 - len(blue_players))])
 
                     group.extend(green_players)
                     group.extend(blue_players)
@@ -317,15 +317,15 @@ class Group(BaseGroup):
                         green_players = [x for x in outcome_tuple_green_treat if x not in group][
                                         :2 - len(outcome_tuple_green_treat)]
                         # Add non-participating blue players from other_blue if needed
-                        #blue_players.extend(
-                            #[random.choice(outcome_tuple_other_blue) for _ in range(2 - len(blue_players))])
+                        blue_players.extend(
+                            [random.choice(outcome_tuple_other_blue) for _ in range(2 - len(blue_players))])
                     else:
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][:1]
                         green_players = [x for x in outcome_tuple_green_control if x not in group][:2]
 
                     # Add non-participating green players from outcome_tuple_green_treat and other_green if needed
-                    #green_players.extend([random.choice(outcome_tuple_green_treat + outcome_tuple_other_green)
-                                          #for _ in range(2 - len(green_players))])
+                    green_players.extend([random.choice(outcome_tuple_green_treat + outcome_tuple_other_green)
+                                          for _ in range(2 - len(green_players))])
 
                     group.extend(blue_players)
                     group.extend(green_players)
