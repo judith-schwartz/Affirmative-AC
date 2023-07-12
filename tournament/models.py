@@ -1,3 +1,4 @@
+from otree import export
 from otree.api import *
 import random, string, json, time, math, pickle
 import numpy as np
@@ -297,15 +298,15 @@ class Group(BaseGroup):
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][
                                        :2 - len(outcome_tuple_blue_control)]
                         # Add non-participating green players from other_green if needed
-                        green_players.extend(
-                            [random.choice(outcome_tuple_other_green) for _ in range(2 - len(green_players))])
+                        #green_players.extend(
+                         #   [random.choice(outcome_tuple_other_green) for _ in range(2 - len(green_players))])
                     else:
                         green_players = [x for x in outcome_tuple_green_control if x not in group][:1]
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][:2]
 
                     # Add non-participating blue players from outcome_tuple_blue_treat and other_blue if needed
-                    blue_players.extend([random.choice(outcome_tuple_blue_treat + outcome_tuple_other_blue)
-                                         for _ in range(2 - len(blue_players))])
+                    #blue_players.extend([random.choice(outcome_tuple_blue_treat + outcome_tuple_other_blue)
+                                         #for _ in range(2 - len(blue_players))])
 
                     group.extend(green_players)
                     group.extend(blue_players)
@@ -316,15 +317,15 @@ class Group(BaseGroup):
                         green_players = [x for x in outcome_tuple_green_treat if x not in group][
                                         :2 - len(outcome_tuple_green_treat)]
                         # Add non-participating blue players from other_blue if needed
-                        blue_players.extend(
-                            [random.choice(outcome_tuple_other_blue) for _ in range(2 - len(blue_players))])
+                        #blue_players.extend(
+                            #[random.choice(outcome_tuple_other_blue) for _ in range(2 - len(blue_players))])
                     else:
                         blue_players = [x for x in outcome_tuple_blue_control if x not in group][:1]
                         green_players = [x for x in outcome_tuple_green_control if x not in group][:2]
 
                     # Add non-participating green players from outcome_tuple_green_treat and other_green if needed
-                    green_players.extend([random.choice(outcome_tuple_green_treat + outcome_tuple_other_green)
-                                          for _ in range(2 - len(green_players))])
+                    #green_players.extend([random.choice(outcome_tuple_green_treat + outcome_tuple_other_green)
+                                          #for _ in range(2 - len(green_players))])
 
                     group.extend(blue_players)
                     group.extend(green_players)
@@ -537,11 +538,8 @@ class Player(BasePlayer):
         label="Wie schneiden Sie im Vergleich zum Rest der Gruppe ab?"
     )
 
-
-
     def set_outcome(self, outcome):
         self.participant.vars['outcome'] = outcome
-
 
     def set_all_outcome(self, outcome):
         self.participant.vars['all_outcomes'] = outcome
@@ -593,33 +591,54 @@ class Player(BasePlayer):
         # Print the assigned value to check
         print(f"Assigned performance_production to participant: {participant.performance_production}")
 
+    def custom_export(players):
+        # Header row
+        yield ['part1_session_code', 'part1_participant_code', 'prolific_id', 'completed_part1',
+               'part1_start_time', 'part1_end_time', 'part1_completion_fee',
+               'group', 'production', 'tasks1min', 'income', 'time', 'completed_tasks_productivity',
+               'tasks_done_during_practice', 'performance_production', 'performance_practice',
+               'belief_performance1', 'belief_relative1', 'belief_performance2', 'belief_relative2',
+               'outcome']
+
+        # Data
+        for p in players:
+            participant = p.participant
+            session = p.session
+            ppvars = participant.vars
+            ppcomps = ppvars.get('components', {})
+            group = ppcomps.get('group', '')
+            time = ppvars.get('time', '')
+            tasks_done_during_practice = ppvars.get('tasks_done_during_practice', '')
+            performance_production = p.performance_production
+            performance_practice = p.performance_practice
+            belief_performance1 = p.belief_performance1
+            belief_relative1 = p.belief_relative1
+            belief_performance2 = p.belief_performance2
+            belief_relative2 = p.belief_relative2
+            outcome = ppvars.get('outcome', '')  # Add participant's outcome
+
+            yield [
+                session.code,
+                participant.code,
+                participant.label,
+                ppvars.get('completed', ''),
+                ppvars.get('start_time', ''),
+                ppvars.get('end_time', ''),
+                session.config.get('participation_fee', ''),
+                group,
+                ppcomps.get('production', ''),
+                ppcomps.get('tasks1min', ''),
+                ppcomps.get('income', ''),
+                time,
+                ppvars.get('completed_tasks_productivity', ''),
+                tasks_done_during_practice,
+                performance_production,
+                performance_practice,
+                belief_performance1,
+                belief_relative1,
+                belief_performance2,
+                belief_relative2,
+                outcome
+            ]
 
 
-def custom_export(players):
-    # header row
-    yield ['part1_session_code', 'part1_participant_code', 'prolific_id', 'completed_part1',
-           'part1_start_time', 'part1_end_time', 'part1_completion_fee',
-           'group', 'production', 'tasks1min', 'income', 'time', 'completed_tasks_productivity',
-           'tasks_done_during_practice', 'performance_production', 'performance_practice',
-           'belief_performance1', 'belief_relative1', 'belief_performance2', 'belief_relative2']
-
-    # data
-    for p in players:
-        pp = p.participant
-        ppvars = pp.vars
-        ppcomps = ppvars['components']
-        ps = p.session
-        group = ppcomps.get('group', '')
-        time = ppvars.get('time', '')
-        tasks_done_during_practice = ppvars.get('tasks_done_during_practice', '')
-        performance_production = p.performance_production
-        performance_practice = p.performance_practice
-        belief_performance1 = p.belief_performance1
-        belief_relative1 = p.belief_relative1
-        belief_performance2 = p.belief_performance2
-        belief_relative2 = p.belief_relative2
-        yield [ps.code, pp.code, pp.label, ppvars['completed'], ppvars['start_time'],
-               ppvars['end_time'], ps.config['participation_fee'], task_length_treatment,
-               group, ppcomps['production'], ppcomps['tasks1min'], ppcomps['income'], time,
-               ppvars['completed_tasks_productivity'], tasks_done_during_practice, performance_production, performance_practice,
-               belief_performance1, belief_relative1, belief_performance2, belief_relative2]

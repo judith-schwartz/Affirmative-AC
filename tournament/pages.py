@@ -192,6 +192,8 @@ class BeforeBonus(WaitPage):
     template_name = 'tournament/MyWaitPage.html'
     after_all_players_arrive = 'tournament_outcome'
 
+
+
     #def before_next_page(self):
         #print("Before next page method called")
         #self.player.save_player_variables_as_participant_variables()

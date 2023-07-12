@@ -75,8 +75,11 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEMO_PAGE_INTRO_HTML = """
 Here are some oTree games.
 """
-PARTICIPANT_FIELDS = ['performance_production', 'performance_practice', 'belief_performance1', 'belief_relative1', 'belief_performance2', 'belief_relative2']
+PARTICIPANT_FIELDS = ['performance_production', 'performance_practice', 'belief_performance1', 'belief_relative1',
+                      'belief_performance2', 'belief_relative2', 'outcome', 'all_outcomes']
 
 SECRET_KEY = 'rx%=*vn(a2@&!w083zpn@h$$k9vm^%t!p$#yi*p0^(3i)aqb+h'
 
 INSTALLED_APPS = ['otree']
+
+
