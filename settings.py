@@ -7,6 +7,15 @@ SECRET_KEY = 'MY SECRET KEY'
 
 SESSION_CONFIGS = [
     dict(
+        name='combined',
+        display_name='combined',
+        num_demo_participants=4,
+        expShortName="ECT",
+        expId=10,
+        sessId=71,
+        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info', 'payment'],
+    ),
+    dict(
         name='survey',
         display_name='survey',
         num_demo_participants=1,
@@ -24,15 +33,6 @@ SESSION_CONFIGS = [
         num_demo_participants=8,
         app_sequence=['tournament'],
 
-    ),
-    dict(
-        name='combined',
-        display_name='combined',
-        num_demo_participants=4,
-        expShortName="ECT",
-        expId=10,
-        sessId=71,
-        app_sequence=['tournament', 'slider_noanchor', 'Quiz', 'payment_info'],
     ),
     dict(
         name='slider_noanchor',
